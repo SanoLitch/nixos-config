@@ -1,0 +1,9 @@
+{
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "US",
+    "format-ru(ru)": "ru-RU",
+    "rotate": 0,
+    "on-click": "hyde-shell keyboardswitch"
+  }
+}

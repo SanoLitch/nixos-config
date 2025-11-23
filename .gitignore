@@ -1,0 +1,6 @@
+.direnv
+*.qcow2
+result
+.git-hooks
+.config/**/*.*
+!.config/**/*.example.*

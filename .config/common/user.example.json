@@ -1,0 +1,5 @@
+{
+  "username": "me",
+  "password": "password",
+  "groups": ["wheel", "networkmanager", "video", "keyd", "docker", "network"]
+}
