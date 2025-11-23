@@ -2,5 +2,5 @@
 *.qcow2
 result
 .git-hooks
-.config/**/*.*
+.config/**/*
 !.config/**/*.example.*

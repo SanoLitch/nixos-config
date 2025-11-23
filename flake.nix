@@ -26,22 +26,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    local_config = {
-      url = "path:./.config";
-      flake = false;
-    };
   };
   outputs =
-    { local_config, ... }@inputs:
+    { ... }@inputs:
     let
       system = "x86_64-linux";
 
       mkNixosSystem =
         hostname: modules:
+        let
+          local_config = ./config;
+          secrets = {
+            user = builtins.fromJSON (builtins.readFile "${local_config}/common/user.json");
+            git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
+            vpn = builtins.fromJSON (builtins.readFile "${local_config}/common/vpn.json");
+            outline = builtins.readFile "${local_config}/${hostname}/outline.key";
+          };
+        in
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs hostname;
+            inherit inputs hostname secrets;
           };
           inherit modules;
         };

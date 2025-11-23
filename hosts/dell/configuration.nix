@@ -1,18 +1,10 @@
 {
   inputs,
-  local_config,
   hostname,
   pkgs,
+  secrets,
   ...
 }:
-let
-  secrets = {
-    user = builtins.fromJSON (builtins.readFile "${local_config}/common/user.json");
-    git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
-    vpn = builtins.fromJSON (builtins.readFile "${local_config}/common/vpn.json");
-    outline = builtins.readFile "${local_config}/${hostname}/outline.key";
-  };
-in
 {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
