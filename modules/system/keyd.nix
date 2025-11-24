@@ -45,6 +45,19 @@ in
           commonSettings
         ];
       };
+      dell = {
+        ids = [ "0001:0001:6fb3735a" ];
+        settings = lib.mkMerge [
+          {
+            main = {
+              capslock = "overload(control, esc)";
+              leftalt = "layer(meta_mac)";
+              leftcontrol = "leftalt";
+            };
+          }
+          commonSettings
+        ];
+      };
     };
   };
 
