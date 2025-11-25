@@ -6,6 +6,7 @@
   imports = [
     ./keepassxc.nix
     ./nixvim
+    ./gemini.nix
   ];
 
   home.packages = with pkgs; [
@@ -13,10 +14,11 @@
     brave
     pcloud
     yazi
-    gemini-cli
     telegram-desktop
     ripgrep
     devbox
     zoom-us
+    lazygit
+    jetbrains.webstorm
   ];
 }
