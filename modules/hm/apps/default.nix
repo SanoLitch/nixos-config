@@ -19,6 +19,8 @@
     devbox
     zoom-us
     lazygit
-    jetbrains.webstorm
+    ddcutil
+
+    # jetbrains.webstorm # able to install only via vpn
   ];
 }

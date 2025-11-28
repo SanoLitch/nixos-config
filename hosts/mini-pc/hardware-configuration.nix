@@ -15,24 +15,27 @@
   ];
 
   boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
     "nvme"
+    "xhci_pci"
+    "thunderbolt"
     "usbhid"
     "usb_storage"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "i2c-dev"
+  ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d8c105df-ca9c-47a2-8e4a-8468bf27d29e";
+    device = "/dev/disk/by-uuid/4671a02b-dc3a-4528-b6d3-f666e89a7880";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/12A8-86C0";
+    device = "/dev/disk/by-uuid/6885-F20A";
     fsType = "vfat";
     options = [
       "fmask=0022"
@@ -47,9 +50,12 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  services.udev.extraRules = ''
+    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+  '';
 }
