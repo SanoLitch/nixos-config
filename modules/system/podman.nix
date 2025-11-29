@@ -3,13 +3,10 @@
   ...
 }:
 {
-  virtualisation.docker = {
+  virtualisation.podman = {
     enable = true;
-    # storageDriver = "btrfs";
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
     autoPrune = {
       enable = true;
       dates = "weekly";
@@ -17,6 +14,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    docker-compose
+    podman-compose
   ];
 }

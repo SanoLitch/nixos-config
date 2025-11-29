@@ -7,6 +7,7 @@
     ./keyboard-layout.nix
     ./keyd.nix
     # ./docker.nix
+    ./podman.nix
     ./outline
   ];
 
