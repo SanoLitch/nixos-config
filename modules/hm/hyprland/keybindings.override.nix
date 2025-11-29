@@ -41,6 +41,8 @@
 
     unbind = $mainMod, F
     bindd = $mainMod, F, $d toggle fullscreen, fullscreen
+    unbind = $mainMod, E
+    bind = $mainMod, E, exec, kitty -e yazi
 
     $d=[$wm|Group Navigation]
     unbind = $mainMod, H

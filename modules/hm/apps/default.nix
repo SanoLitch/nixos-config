@@ -7,13 +7,13 @@
     ./keepassxc.nix
     ./nixvim
     ./gemini.nix
+    ./yazi.nix
   ];
 
   home.packages = with pkgs; [
     btop
     brave
     pcloud
-    yazi
     telegram-desktop
     ripgrep
     devbox
