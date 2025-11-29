@@ -11,7 +11,7 @@
       ./plugins
     ];
 
-    plugins.aerial.enable = true;
+    # plugins.aerial.enable = true;
     plugins.which-key.enable = true;
     plugins.rainbow.enable = true;
     plugins.rainbow-delimiters.enable = true;

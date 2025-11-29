@@ -20,6 +20,7 @@
     zoom-us
     lazygit
     ddcutil
+    unar
 
     # jetbrains.webstorm # able to install only via vpn
   ];

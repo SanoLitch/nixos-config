@@ -2,7 +2,7 @@
   plugins.telescope = {
     enable = true;
     enabledExtensions = [
-      "aerial"
+      # "aerial"
       "noice"
     ];
     extensions = {
@@ -37,7 +37,16 @@
         sorting_strategy = "ascending";
         winblend = 0;
         border = true;
-        borderchars = [ "─" "│" "─" "│" "╭" "╮" "╯" "╰" ];
+        borderchars = [
+          "─"
+          "│"
+          "─"
+          "│"
+          "╭"
+          "╮"
+          "╯"
+          "╰"
+        ];
       };
       pickers = {
         colorscheme = {
