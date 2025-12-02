@@ -22,6 +22,7 @@
     plugins.vim-surround.enable = true;
 
     clipboard.providers.wl-copy.enable = true;
+    clipboard.register = "unnamedplus";
 
     opts = {
       virtualedit = "block"; # Allow cursor to move where there is no text in visual block mode
@@ -86,6 +87,8 @@
 
       # Maximum number of items to show in the popup menu (0 means "use available screen space")
       pumheight = 0;
+
+      exrc = true;
     };
 
     diagnostic = {

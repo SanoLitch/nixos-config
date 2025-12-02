@@ -21,6 +21,7 @@
     lazygit
     ddcutil
     unar
+    spotify-player
 
     # jetbrains.webstorm # able to install only via vpn
   ];
