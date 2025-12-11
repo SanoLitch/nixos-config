@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./nix.nix
@@ -9,6 +9,7 @@
     # ./docker.nix
     ./podman.nix
     ./outline
+    ./ssh.nix
   ];
 
   environment.systemPackages = with pkgs; [
