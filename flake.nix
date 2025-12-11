@@ -3,7 +3,7 @@
 
   inputs = {
     # Your nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Hydenix
     hydenix = {
@@ -21,7 +21,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-25.11";
       # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
       inputs.nixpkgs.follows = "nixpkgs";
     };
