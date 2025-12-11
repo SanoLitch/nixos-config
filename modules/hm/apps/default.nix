@@ -8,6 +8,7 @@
     ./nixvim
     ./gemini.nix
     ./yazi.nix
+    ./firefox.nix
   ];
 
   home.packages = with pkgs; [

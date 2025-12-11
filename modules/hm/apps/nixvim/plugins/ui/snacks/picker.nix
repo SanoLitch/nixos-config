@@ -1,30 +1,28 @@
 { lib, ... }:
 {
   plugins.snacks.settings.picker = {
-    settings = {
-      picker = {
-        enabled = true;
-        sources = {
-          explorer = {
-            hidden = true;
-            ignored = true;
-          };
-          files = {
-            hidden = true;
-            ignored = true;
-          };
-        };
+    enabled = true;
+    sources = {
+      explorer = {
         hidden = true;
         ignored = true;
-        exclude = [
-          "node_modules/"
-          "dist/"
-          ".git/"
-          "build/"
-          "target"
-        ];
+      };
+      files = {
+        hidden = true;
+        ignored = true;
       };
     };
+    hidden = true;
+    ignored = true;
+    exclude = [
+      "node_modules/"
+      "dist/"
+      ".git/"
+      "build/"
+      "target"
+      "*.lock"
+      "*-lock.*"
+    ];
   };
 
   keymaps = [

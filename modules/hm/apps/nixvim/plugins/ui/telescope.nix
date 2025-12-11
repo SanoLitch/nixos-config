@@ -2,7 +2,7 @@
   plugins.telescope = {
     enable = true;
     enabledExtensions = [
-      # "aerial"
+      "aerial"
       "noice"
     ];
     extensions = {
