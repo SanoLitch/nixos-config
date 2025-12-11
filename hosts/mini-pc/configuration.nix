@@ -39,6 +39,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup";
 
     extraSpecialArgs = { inherit inputs secrets; };
     # User Configuration - REQUIRED: Change "hydenix" to your actual username
