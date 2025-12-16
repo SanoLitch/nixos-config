@@ -22,6 +22,7 @@
     lazygit
     ddcutil
     unar
+    libreoffice
     spotify-player
 
     # jetbrains.webstorm # able to install only via vpn
