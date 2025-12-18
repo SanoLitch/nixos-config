@@ -16,5 +16,6 @@
     ./spider.nix
     ./telescope.nix
     ./theme.nix
+    ./firenvim.nix
   ];
 }
