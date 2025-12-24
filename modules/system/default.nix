@@ -10,6 +10,7 @@
     ./podman.nix
     ./outline
     ./ssh.nix
+    ./steam.nix
   ];
 
   environment.systemPackages = with pkgs; [
