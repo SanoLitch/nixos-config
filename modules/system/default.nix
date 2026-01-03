@@ -17,5 +17,6 @@
     gcc
     fd
     openssl
+    appimage-run
   ];
 }
