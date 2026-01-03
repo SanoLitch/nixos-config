@@ -6,7 +6,7 @@
     ./keybindings.override.nix
     ./userprefs.nix
     ./kitty.nix
-    # ./waybar
+    ./waybar
   ];
 
   hydenix = {
