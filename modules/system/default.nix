@@ -2,6 +2,7 @@
 {
   imports = [
     ./nix.nix
+    ./locale.nix
     ./drivers.nix
     ./networking.nix
     ./keyboard-layout.nix
