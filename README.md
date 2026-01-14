@@ -1,68 +1,92 @@
-<img align="right" width="75px" alt="NixOS" src="https://github.com/HyDE-Project/HyDE/blob/master/Source/assets/nixos.png?raw=true"/>
+# NixOS Configuration
 
-# hydenix template flake
+This repository contains my personal NixOS and Home Manager configurations.
 
-This is now your personal NixOS configuration.\
-Add packages, customize themes, or even disable hydenix and setup your own wm/de.\
-Enjoy the full power of Nix!
+## Setup Instructions
 
-visit the [docs/installation.md](./docs/installation.md) to get started.
+### Initial Installation (NixOS)
 
-## file structure
+Follow the standard NixOS installation guide, pointing to this repository as your configuration source.
 
-### core configuration files
+### Home Manager Initialization
 
-| file | description |
-|------|-------------|
-| `flake.nix` | main flake configuration and entry point |
-| `configuration.nix` | nixos system configuration |
-| `hardware-configuration.nix` | hardware-specific settings (auto-generated) |
+After installing NixOS, ensure Home Manager is properly linked and configured for your user.
 
-### documentation
+## Post-Installation Manual Steps
 
-| file | purpose |
-|------|---------|
-| [`docs/installation.md`](./docs/installation.md) | installation guide and setup instructions |
-| [`docs/options.md`](./docs/options.md) | available module configuration options |
-| [`docs/faq.md`](./docs/faq.md) | frequently asked questions and solutions |
-| [`docs/troubleshooting.md`](./docs/troubleshooting.md) | common issues and fixes |
-| [`docs/upgrading.md`](./docs/upgrading.md) | how to upgrade your configuration |
-| [`docs/contributing.md`](./docs/contributing.md) | guidelines for contributing |
-| [`docs/community.md`](./docs/community.md) | community configurations and examples |
+### Mail (aerc, mbsync)
 
-### write your own modules
+To set up your email accounts and ensure background synchronization:
 
-> **note:** Use these directories to override or extend hydenix modules with your custom configurations.
+1.  **Configure Secrets:**
+    *   Create or update the file `config/common/email.json` with your account details.
+    *   For Gmail and Yandex, use **App Passwords** instead of your main account password. Ensure App Passwords allow mail access.
+    *   Example structure in `config/common/email.json`:
+        ```json
+        {
+          "myaccount": {
+            "username": "your_email@example.com",
+            "address": "your_email@example.com",
+            "password": "your_app_password_for_mail",
+            "name": "myaccount",
+            "imap": {
+              "host": "imap.example.com",
+              "port": 993
+            }
+          }
+        }
+        ```
+        (You can add `password_calendar` field for calendar-specific app passwords if needed).
 
-| directory | type | purpose |
-|-----------|------|---------|
-| `modules/hm/` | home manager | custom home-manager module definitions (and for `hydenix.hm` options) |
-| `modules/system/` | nixos system | custom system-level module definitions (and for `hydenix` options) |
+2.  **Rebuild NixOS/Home Manager:**
+    Apply your configuration changes to integrate the new email setup.
+    ```bash
+    # For NixOS rebuild
+    sudo nixos-rebuild switch --flake .#your_hostname
+    # For Home Manager only rebuild
+    home-manager switch --flake .#your_hostname
+    ```
 
-### directory tree
+3.  **Manual Synchronization Check:**
+    To perform an immediate mail sync and check for errors:
+    ```bash
+    mbsync -a
+    ```
+    This will also trigger the notification script.
 
-```bash
-hydenix/
-├── README.md
-├── flake.nix
-├── configuration.nix
-├── hardware-configuration.nix
-├── docs/
-│   ├── *.md files
-│   └── assets/
-└── modules/
-    ├── hm/default.nix
-    └── system/default.nix
-```
+4.  **Aerc Usage:**
+    Launch `aerc` from your terminal to access your mail.
 
-## next steps
+### Calendar (khal, vdirsyncer)
 
-- to learn more about nix, see [nix resources](./docs/faq.md#how-do-i-learn-more-about-nix)
-- see [module options](./docs/options.md) for configuration
-- check the [faq](./docs/faq.md) and [troubleshooting](./docs/troubleshooting.md) guides
+To set up your calendar accounts and ensure background synchronization:
 
-## getting help
+1.  **Configure Secrets:**
+    *   Ensure `config/common/email.json` contains `password_calendar` (App Password) for accounts you want to sync calendars for, especially for Yandex.
 
-- [hydenix issues](https://github.com/richen604/hydenix/issues)
-- [hydenix discussions](https://github.com/richen604/hydenix/discussions)
-- [hyde discord](https://discord.gg/AYbJ9MJez7)
+2.  **Rebuild NixOS/Home Manager:**
+    Apply your configuration changes (see step 2 in Mail setup above).
+
+3.  **Discover Calendars:**
+    The first time, you need to tell `vdirsyncer` which calendars to sync from your remote accounts.
+    ```bash
+    vdirsyncer discover
+    ```
+    Follow the prompts to select the calendar collections you wish to synchronize (usually `y` or `a`).
+
+4.  **Initial Synchronization:**
+    After discovery, perform the first full sync:
+    ```bash
+    vdirsyncer sync
+    ```
+
+5.  **Khal Usage:**
+    Launch `khal` from your terminal to view your calendars.
+
+## Common Issues & Troubleshooting
+
+*   **`mbsync` or `vdirsyncer` takes too long:** For Gmail, disable IMAP synchronization for the "All Mail" folder in Gmail settings. This is a common cause of slow syncs.
+*   **Notifications not arriving:** Ensure `mbsync.service` is running and the `~/.cache/mail_new_count` file is updated. Check `journalctl --user -u mbsync.service`.
+
+---
+This README is automatically generated and maintained.

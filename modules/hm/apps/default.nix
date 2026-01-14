@@ -9,6 +9,10 @@
     ./gemini.nix
     ./yazi.nix
     ./firefox.nix
+    ./aerc.nix
+    ./khal.nix
+    ./email-accounts.nix
+    ./calendar-accounts.nix
   ];
 
   home.packages = with pkgs; [

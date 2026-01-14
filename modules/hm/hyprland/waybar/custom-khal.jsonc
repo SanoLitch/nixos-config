@@ -1,0 +1,10 @@
+{
+    "custom/khal": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/khal-waybar.sh",
+        "return-type": "json",
+        "interval": 60,
+        "on-click": "kitty --class khal -e khal interactive",
+        "tooltip": true
+    }
+}
