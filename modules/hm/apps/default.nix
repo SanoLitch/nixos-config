@@ -24,6 +24,7 @@
     devbox
     zoom-us
     lazygit
+    lazysql
     ddcutil
     unar
     libreoffice

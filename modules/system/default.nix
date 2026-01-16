@@ -14,6 +14,15 @@
     ./steam.nix
   ];
 
+  environment.variables = {
+    EDITOR = "nvim";
+    SQL_EDITOR = "nvim";
+    VISUAL = "nvim";
+    WEATHER_SHOW_LOCATION = "false";
+    BROWSER = "firefox";
+    TERM = "kitty";
+  };
+
   environment.systemPackages = with pkgs; [
     gcc
     fd
