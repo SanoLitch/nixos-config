@@ -19,6 +19,7 @@
     SQL_EDITOR = "nvim";
     VISUAL = "nvim";
     WEATHER_SHOW_LOCATION = "false";
+    WEATHER_LOCATION = "moscow";
     BROWSER = "firefox";
     TERM = "kitty";
   };
