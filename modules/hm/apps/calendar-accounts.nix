@@ -20,7 +20,7 @@ let
       [pair ${name}]
       a = "${name}_local"
       b = "${name}_remote"
-      collections = null
+      collections = ["from b", "from a"]
 
       [storage ${name}_local]
         type = "filesystem"
