@@ -6,7 +6,6 @@
   ...
 }:
 {
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     inputs.hydenix.overlays.default
   ];
@@ -53,6 +52,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "bak";
 
     extraSpecialArgs = { inherit inputs secrets; };
     # User Configuration - REQUIRED: Change "hydenix" to your actual username

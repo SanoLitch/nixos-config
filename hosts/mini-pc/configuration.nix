@@ -6,7 +6,6 @@
   ...
 }:
 {
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     inputs.hydenix.overlays.default
   ];

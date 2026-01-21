@@ -32,7 +32,7 @@ in
     enable = true;
     keyboards = {
       K380 = {
-        ids = [ "046d:b362:7870a075" ];
+        ids = [ "046d:b362" ];
         settings = lib.mkMerge [
           {
             main = {
@@ -46,7 +46,7 @@ in
         ];
       };
       dell = {
-        ids = [ "0001:0001:6fb3735a" ];
+        ids = [ "0001:0001" ];
         settings = lib.mkMerge [
           {
             main = {

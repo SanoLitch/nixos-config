@@ -25,6 +25,7 @@
     zoom-us
     lazygit
     lazysql
+    lazydocker
     ddcutil
     unar
     libreoffice
