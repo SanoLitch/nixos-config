@@ -26,6 +26,7 @@
     lazygit
     lazysql
     lazydocker
+    wl-clipboard
     ddcutil
     unar
     libreoffice

@@ -17,5 +17,6 @@
     ./telescope.nix
     ./theme.nix
     ./firenvim.nix
+    ./kitty-scrollback.nix
   ];
 }
