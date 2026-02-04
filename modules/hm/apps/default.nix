@@ -13,6 +13,10 @@
     ./khal.nix
     ./email-accounts.nix
     ./calendar-accounts.nix
+    ./zsh.nix
+    ./bat.nix
+    ./lazygit.nix
+    ./git.nix
   ];
 
   home.packages = with pkgs; [
@@ -23,13 +27,13 @@
     ripgrep
     devbox
     zoom-us
-    lazygit
     lazysql
     lazydocker
     wl-clipboard
     ddcutil
     unar
     libreoffice
+    rustdesk
     spotify-player
 
     # jetbrains.webstorm # able to install only via vpn
