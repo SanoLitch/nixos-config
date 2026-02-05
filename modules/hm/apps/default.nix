@@ -13,7 +13,6 @@
     ./khal.nix
     ./email-accounts.nix
     ./calendar-accounts.nix
-    ./zsh.nix
     ./bat.nix
     ./lazygit.nix
     ./git.nix
@@ -35,7 +34,5 @@
     libreoffice
     rustdesk
     spotify-player
-
-    # jetbrains.webstorm # able to install only via vpn
   ];
 }

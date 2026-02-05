@@ -7,6 +7,7 @@
     ./userprefs.nix
     ./kitty.nix
     ./waybar
+    ./zsh.nix
   ];
 
   hydenix = {
