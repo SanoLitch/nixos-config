@@ -59,6 +59,8 @@ in
   programs.firefox = {
     enable = true;
 
+    nativeMessagingHosts = [ pkgs.ff2mpv ];
+
     profiles.default = {
       id = 0;
       name = "default";

@@ -34,5 +34,6 @@
     libreoffice
     rustdesk
     spotify-player
+    qbittorrent
   ];
 }

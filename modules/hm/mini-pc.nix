@@ -1,5 +1,9 @@
 { ... }:
 {
+  imports = [
+    ./apps/mpv.nix
+  ];
+
   hydenix = {
     hm = {
       hyprland = {
