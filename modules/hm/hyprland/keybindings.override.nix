@@ -45,8 +45,8 @@
     bind = $mainMod, E, exec, kitty -e yazi
 
     $d=[$wm|Group Navigation]
-    unbind = $mainMod, H
-    unbind = $mainMod, L
+    unbind = $mainMod Control, H
+    unbind = $mainMod Control, L
     bindd = $mainMod Control, H, $d change active group backwards   , changegroupactive, b
     bindd = $mainMod Control, L, $d change active group forwards  , changegroupactive, f
 
@@ -93,5 +93,14 @@
 
     bind = $mainMod, mouse:276, workspace, r+1
     bind = $mainMod, mouse:275, workspace, r-1
+
+    bind = $mainMod, Return, layoutmsg, swapwithmaster
+
+    # Group management
+    bind = $mainMod, G, togglegroup
+
+    # Master layout management
+    bind = $mainMod, M, layoutmsg, addmaster
+    bind = $mainMod Shift, M, layoutmsg, removemaster
   '';
 }

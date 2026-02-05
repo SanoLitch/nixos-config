@@ -28,6 +28,12 @@
     general {
       gaps_in = 1
       gaps_out = 1
+      layout = master
+    }
+
+    master {
+      new_status = slave
+      mfact = 0.65
     }
 
     decoration {
