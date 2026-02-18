@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   settings = {
     general = {
-      preferredEditor = "nvim";
+      preferredEditor = "neovim";
       previewFeatures = true;
       vimMode = false;
       disableAutoUpdate = true;
@@ -18,7 +18,10 @@ let
         selectedType = "oauth-personal";
       };
     };
-    experimental.codebaseInvestigatorSettings.maxNumTurns = 30;
+    experimental = {
+      codebaseInvestigatorSettings.maxNumTurns = 30;
+      plan = true;
+    };
   };
 in
 {
@@ -33,4 +36,8 @@ in
       mutable = true;
     };
   };
+
+  home.activation.installGeminiConductor = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${pkgs.gemini-cli}/bin/gemini extension install https://github.com/gemini-cli-extensions/conductor --auto-update --consent || true
+  '';
 }
