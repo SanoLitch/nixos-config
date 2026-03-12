@@ -4,7 +4,7 @@
     ./hyprland
     ./apps
     ./apps/mpv.nix
-    ./hyprland/waybarresolution-module.nix
+    ./hyprland/waybar/resolution-module.nix
   ];
 
   hydenix = {
