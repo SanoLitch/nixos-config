@@ -15,6 +15,7 @@
     inputs.hydenix.inputs.home-manager.nixosModules.home-manager
     inputs.hydenix.nixosModules.default
     ../../modules/system # Your custom system modules
+    ../../modules/system/default.mini-pc.nix # Your custom system modules
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware

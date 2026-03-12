@@ -56,6 +56,21 @@
         }
 
         {
+          __unkeyed-1 = "<leader>t";
+          mode = "n";
+          group = "Tests";
+        }
+
+        {
+          __unkeyed-1 = "<leader>i";
+          mode = [
+            "n"
+            "v"
+          ];
+          group = "i18n";
+        }
+
+        {
           __unkeyed-1 = "<leader>u";
           mode = "n";
           group = "Utils";

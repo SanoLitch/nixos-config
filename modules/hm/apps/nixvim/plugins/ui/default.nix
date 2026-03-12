@@ -9,6 +9,7 @@
     # ./indent.nix
     ./mini.nix
     ./noice.nix
+    ./neotest.nix
     # ./nvimtree.nix
     ./scrollview.nix
     ./snacks
