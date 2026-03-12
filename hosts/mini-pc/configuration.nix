@@ -48,8 +48,7 @@
       {
         imports = [
           inputs.hydenix.homeModules.default
-          ../../modules/hm # Your custom home-manager modules (configure hydenix.hm here!)
-          ../../modules/hm/mini-pc.nix
+          ../../modules/hm/default.mini-pc.nix
         ];
       };
   };

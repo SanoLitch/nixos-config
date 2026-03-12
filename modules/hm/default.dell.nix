@@ -1,5 +1,10 @@
 { ... }:
 {
+  imports = [
+    ./hyprland
+    ./apps
+  ];
+
   hydenix = {
     hm = {
       hyprland = {

@@ -60,8 +60,7 @@
       {
         imports = [
           inputs.hydenix.homeModules.default
-          ../../modules/hm # Your custom home-manager modules (configure hydenix.hm here!)
-          ../../modules/hm/pc.nix
+          ../../modules/hm/default.pc.nix
         ];
       };
   };

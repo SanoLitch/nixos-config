@@ -50,16 +50,16 @@
 
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
-  services.auto-cpufreq.settings = {
-    battery = {
-      governor = "powersave";
-      turbo = "auto";
-    };
-    charger = {
-      governor = "performance";
-      turbo = "auto";
-    };
-  };
+  # services.auto-cpufreq.settings = {
+  #   battery = {
+  #     governor = "powersave";
+  #     turbo = "auto";
+  #   };
+  #   charger = {
+  #     governor = "performance";
+  #     turbo = "auto";
+  #   };
+  # };
 
   # Home Manager Configuration - manages user-specific configurations (dotfiles, themes, etc.)
   home-manager = {
@@ -75,8 +75,7 @@
       {
         imports = [
           inputs.hydenix.homeModules.default
-          ../../modules/hm # Your custom home-manager modules (configure hydenix.hm here!)
-          ../../modules/hm/dell.nix
+          ../../modules/hm/default.dell.nix
         ];
       };
   };
