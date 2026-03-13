@@ -1,6 +1,7 @@
 {
   imports = [
-    ./airline.nix
+    # ./airline.nix
+    ./lualine.nix
     ./alpha.nix
     ./bufferline.nix
     ./diagnostics.nix
