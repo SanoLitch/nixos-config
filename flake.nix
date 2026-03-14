@@ -40,6 +40,7 @@
             git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
             vpn = builtins.fromJSON (builtins.readFile "${local_config}/common/vpn.json");
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
+            apps = builtins.fromJSON (builtins.readFile "${local_config}/common/apps.json");
             outline = builtins.readFile "${local_config}/${hostname}/outline.key";
           };
         in
