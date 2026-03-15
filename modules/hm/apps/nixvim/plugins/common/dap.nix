@@ -3,8 +3,16 @@ let
   # Общая функция для поиска корня проекта (package.json)
   root_func = "function() local path = vim.fn.findfile('package.json', vim.fn.expand('%:p:h') .. ';'); if path == '' then return vim.fn.getcwd() end return vim.fn.fnamemodify(path, ':p:h') end";
   
-  # Общая функция для запроса порта
-  port_func = "function() local port = vim.fn.input('Port [3000]: '); if port == '' then port = '3000' end return 'http://localhost:' .. port end";
+  # Расширенная функция для запроса хоста и порта
+  url_func = ''
+    function()
+      local host = vim.fn.input('Host [127.0.0.1]: ')
+      if host == "" then host = "127.0.0.1" end
+      local port = vim.fn.input('Port [3000]: ')
+      if port == "" then port = "3000" end
+      return 'http://' .. host .. ':' .. port
+    end
+  '';
 
   # Общие конфигурации для браузеров и NestJS
   common_web_configs = [
@@ -27,14 +35,14 @@ let
       type = "pwa-chrome";
       request = "launch";
       name = "Launch Chrome against localhost";
-      url.__raw = port_func;
+      url.__raw = url_func;
       webRoot.__raw = root_func;
     }
     {
       type = "firefox";
       request = "launch";
       name = "Launch Firefox against localhost";
-      url.__raw = port_func;
+      url.__raw = url_func;
       webRoot.__raw = root_func;
       reAttach = true;
       firefoxExecutable = "${pkgs.firefox}/bin/firefox";
@@ -44,7 +52,7 @@ let
       type = "firefox";
       request = "attach";
       name = "Attach to Firefox";
-      url.__raw = port_func;
+      url.__raw = url_func;
       webRoot.__raw = root_func;
     }
   ];
