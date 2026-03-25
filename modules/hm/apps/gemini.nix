@@ -32,15 +32,6 @@ let
       codebaseInvestigatorSettings.maxNumTurns = 30;
       plan = true;
     };
-    mcpServers = {
-      context7 = {
-        httpUrl = "https://mcp.context7.com/mcp";
-        headers = {
-          CONTEXT7_API_KEY = secrets.apps.context7ApiKey;
-          Accept = "application/json, text/event-stream";
-        };
-      };
-    };
   };
 in
 {
@@ -78,7 +69,7 @@ in
     }
 
     install_ext "conductor" "https://github.com/gemini-cli-extensions/conductor"
-    install_ext "superpowers" "https://github.com/obra/superpowers"
+    # install_ext "superpowers" "https://github.com/obra/superpowers"
     # install_ext "context7" "https://github.com/upstash/context7"
 
     echo "--- Gemini Install Finished: $(date) ---" >> "$LOG_FILE"

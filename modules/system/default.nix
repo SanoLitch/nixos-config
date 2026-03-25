@@ -12,6 +12,7 @@
     ./outline
     ./ssh.nix
     ./steam.nix
+    ./clash-verge.nix
   ];
 
   environment.variables = {
@@ -28,6 +29,7 @@
     gcc
     fd
     openssl
+    dnsutils
     appimage-run
   ];
 }
