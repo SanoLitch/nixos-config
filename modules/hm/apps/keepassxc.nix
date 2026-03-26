@@ -28,6 +28,9 @@ let
     };
     FdoSecrets = {
       Enabled = true;
+      ConfirmAccessItem = false;
+      ConfirmDeleteItem = false;
+      ShowNotification = false;
     };
     SSHAgent = {
       Enabled = true;

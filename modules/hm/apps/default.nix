@@ -32,8 +32,8 @@
     ddcutil
     unar
     libreoffice
-    rustdesk
     spotify-player
+    claude-code
     qbittorrent
   ];
 }
