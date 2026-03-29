@@ -1,0 +1,88 @@
+{ inputs, pkgs, ... }:
+let
+  # arcWtfTheme = builtins.fetchGit {
+  #   url = "https://github.com/KiKaraage/ArcWTF.git";
+  #   ref = "main";
+  #   rev = "b87561d5ada2fe8c67fa9250f4fc2ee50568cc63";
+  # };
+
+  extension = shortId: guid: {
+    name = guid;
+    value = {
+      install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+      installation_mode = "normal_installed";
+    };
+  };
+
+  prefs = {
+    # Check these out at about:config
+    # "extensions.autoDisableScopes" = 0;
+    # ...
+    "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
+    "cookiebanners.service.mode" = 2; # Block cookie banners
+    "privacy.donottrackheader.enabled" = true;
+    "privacy.trackingprotection.emailtracking.enabled" = true;
+    "privacy.trackingprotection.enabled" = true;
+    "privacy.trackingprotection.fingerprinting.enabled" = true;
+    "privacy.trackingprotection.socialtracking.enabled" = true;
+
+    "extensions.pocket.enabled" = false; # Disable Pocket integration
+    "media.ffmpeg.vaapi.enabled" = true; # Enable hardware video acceleration
+    "browser.aboutConfig.showWarning" = false; # Disable about:config warning
+    # "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+    # "svg.context-properties.content.enabled" = true;
+  };
+
+  extensions = [
+    # To add additional extensions, find it on addons.mozilla.org, find
+    # the short ID in the url (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
+    # Then go to https://addons.mozilla.org/api/v5/addons/addon/!SHORT_ID!/ to get the guid
+    (extension "ublock-origin" "uBlock0@raymondhill.net")
+    (extension "sponsorblock" "sponsorBlocker@ajay.app")
+    (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
+    # (extension "vimium-ff" "{d7742d87-e61d-4b78-b8a1-b469842139fa}")
+    (extension "darkreader" "addon@darkreader.org")
+    (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
+    # (extension "to-google-translate" "jid1-93WyvpgvxzGATw@jetpack")
+    (extension "tridactyl-vim" "tridactyl.vim@cmcaine.co.uk")
+    # (extension "firenvim" "firenvim@lacamb.re")
+    # ...
+  ];
+
+in
+{
+  # home.nix
+  imports = [
+    # inputs.zen-browser.homeModules.beta
+    # or
+    inputs.zen-browser.homeModules.twilight
+    # or
+    # inputs.zen-browser.homeModules.twilight-official
+  ];
+
+  programs.zen-browser = {
+    enable = true;
+    setAsDefaultBrowser = true;
+    nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    policies = {
+      ExtensionSettings = builtins.listToAttrs extensions;
+      SearchEngines = {
+        Default = "ddg";
+      };
+      DisableAppUpdate = true;
+      DisableFeedbackCommands = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+    };
+  };
+}

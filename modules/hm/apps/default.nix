@@ -8,7 +8,7 @@
     ./nixvim
     ./gemini.nix
     ./yazi.nix
-    ./firefox.nix
+    # ./firefox.nix
     ./aerc.nix
     ./khal.nix
     ./email-accounts.nix
@@ -16,6 +16,7 @@
     ./bat.nix
     ./lazygit.nix
     ./git.nix
+    ./zen.nix
   ];
 
   home.packages = with pkgs; [
