@@ -16,6 +16,7 @@
         html.enable = true;
         eslint.enable = true;
         cssls.enable = true;
+        taplo.enable = true;
       };
       onAttach = ''
         vim.keymap.del('n', 'grt')

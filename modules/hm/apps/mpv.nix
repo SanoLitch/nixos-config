@@ -54,6 +54,8 @@ in
       osc = "no";
       osd-bar = "no";
       border = "no";
+
+      af = "dynaudnorm";
     };
 
     bindings = {

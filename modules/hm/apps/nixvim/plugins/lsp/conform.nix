@@ -45,6 +45,8 @@
           stop_after_first = true;
         };
         nix = [ "nixfmt" ];
+        rust = [ "rustfmt" ];
+        toml = [ "taplo" ];
         markdown = {
           __unkeyed-1 = "prettierd";
           stop_after_first = true;

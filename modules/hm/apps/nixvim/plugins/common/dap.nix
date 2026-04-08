@@ -2,7 +2,7 @@
 let
   # Общая функция для поиска корня проекта (package.json)
   root_func = "function() local path = vim.fn.findfile('package.json', vim.fn.expand('%:p:h') .. ';'); if path == '' then return vim.fn.getcwd() end return vim.fn.fnamemodify(path, ':p:h') end";
-  
+
   # Расширенная функция для запроса хоста и порта
   url_func = ''
     function()
@@ -22,14 +22,26 @@ let
       name = "Debug NestJS";
       cwd.__raw = root_func;
       runtimeExecutable = "npm";
-      runtimeArgs = [ "run" "start:debug" "--" "--inspect-brk" ];
+      runtimeArgs = [
+        "run"
+        "start:debug"
+        "--"
+        "--inspect-brk"
+      ];
       autoAttachChildProcesses = true;
       restart = true;
       sourceMaps = true;
       console = "integratedTerminal";
       internalConsoleOptions = "neverOpen";
-      skipFiles = [ "<node_internals>/**" "node_modules/**" "**/node_modules/**" ];
-      resolveSourceMapLocations = [ "\${workspaceFolder}/**" "!**/node_modules/**" ];
+      skipFiles = [
+        "<node_internals>/**"
+        "node_modules/**"
+        "**/node_modules/**"
+      ];
+      resolveSourceMapLocations = [
+        "\${workspaceFolder}/**"
+        "!**/node_modules/**"
+      ];
     }
     {
       type = "pwa-chrome";
@@ -46,7 +58,10 @@ let
       webRoot.__raw = root_func;
       reAttach = true;
       firefoxExecutable = "${pkgs.firefox}/bin/firefox";
-      firefoxArgs = [ "--start-debugger-server" "6000" ];
+      firefoxArgs = [
+        "--start-debugger-server"
+        "6000"
+      ];
     }
     {
       type = "firefox";
@@ -73,7 +88,10 @@ let
     name = "Launch file";
     program = "\${file}";
     cwd.__raw = root_func;
-    runtimeArgs = [ "--loader" "ts-node/register" ];
+    runtimeArgs = [
+      "--loader"
+      "ts-node/register"
+    ];
     sourceMaps = true;
     protocol = "inspector";
     console = "integratedTerminal";
@@ -95,11 +113,28 @@ in
     dap = {
       enable = true;
       signs = {
-        dapBreakpoint = { text = " "; texthl = "DiagnosticInfo"; };
-        dapBreakpointCondition = { text = " "; texthl = "DiagnosticInfo"; };
-        dapBreakpointRejected = { text = " "; texthl = "DiagnosticError"; };
-        dapLogPoint = { text = " "; texthl = "DiagnosticInfo"; };
-        dapStopped = { text = "󰁕 "; texthl = "DiagnosticWarn"; linehl = "DapStoppedLine"; numhl = "DapStoppedLine"; };
+        dapBreakpoint = {
+          text = " ";
+          texthl = "DiagnosticInfo";
+        };
+        dapBreakpointCondition = {
+          text = " ";
+          texthl = "DiagnosticInfo";
+        };
+        dapBreakpointRejected = {
+          text = " ";
+          texthl = "DiagnosticError";
+        };
+        dapLogPoint = {
+          text = " ";
+          texthl = "DiagnosticInfo";
+        };
+        dapStopped = {
+          text = "󰁕 ";
+          texthl = "DiagnosticWarn";
+          linehl = "DapStoppedLine";
+          numhl = "DapStoppedLine";
+        };
       };
       adapters = {
         pwa-node = {
@@ -131,18 +166,41 @@ in
         };
       };
       configurations = {
-        javascript = [ js_file_config node_attach_config ] ++ common_web_configs;
-        javascriptreact = [ js_file_config node_attach_config ] ++ common_web_configs;
-        typescript = [ ts_file_config node_attach_config ] ++ common_web_configs;
-        typescriptreact = [ ts_file_config node_attach_config ] ++ common_web_configs;
-        vue = [ ts_file_config node_attach_config ] ++ common_web_configs;
+        javascript = [
+          js_file_config
+          node_attach_config
+        ]
+        ++ common_web_configs;
+        javascriptreact = [
+          js_file_config
+          node_attach_config
+        ]
+        ++ common_web_configs;
+        typescript = [
+          ts_file_config
+          node_attach_config
+        ]
+        ++ common_web_configs;
+        typescriptreact = [
+          ts_file_config
+          node_attach_config
+        ]
+        ++ common_web_configs;
+        vue = [
+          ts_file_config
+          node_attach_config
+        ]
+        ++ common_web_configs;
       };
     };
     dap-ui.enable = true;
     which-key.settings.spec = [
       {
         __unkeyed-1 = "<leader>d";
-        mode = [ "n" "v" ];
+        mode = [
+          "n"
+          "v"
+        ];
         group = "Debug";
       }
     ];
@@ -166,85 +224,113 @@ in
       mode = [ "n" ];
       action = ":DapContinue<cr>";
       key = "<leader>dc";
-      options = { desc = "Continue"; };
+      options = {
+        desc = "Continue";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapStepOver<cr>";
       key = "<leader>dO";
-      options = { desc = "Step over"; };
+      options = {
+        desc = "Step over";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapStepInto<cr>";
       key = "<leader>di";
-      options = { desc = "Step Into"; };
+      options = {
+        desc = "Step Into";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapStepOut<cr>";
       key = "<leader>do";
-      options = { desc = "Step Out"; };
+      options = {
+        desc = "Step Out";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dap').pause()<cr>";
       key = "<leader>dp";
-      options = { desc = "Pause"; };
+      options = {
+        desc = "Pause";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapToggleBreakpoint<cr>";
       key = "<leader>db";
-      options = { desc = "Toggle Breakpoint"; };
+      options = {
+        desc = "Toggle Breakpoint";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>";
       key = "<leader>dB";
-      options = { desc = "Breakpoint (conditional)"; };
+      options = {
+        desc = "Breakpoint (conditional)";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapToggleRepl<cr>";
       key = "<leader>dR";
-      options = { desc = "Toggle REPL"; };
+      options = {
+        desc = "Toggle REPL";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dap').run_last()<cr>";
       key = "<leader>dr";
-      options = { desc = "Run Last"; };
+      options = {
+        desc = "Run Last";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dap').session()<cr>";
       key = "<leader>ds";
-      options = { desc = "Session"; };
+      options = {
+        desc = "Session";
+      };
     }
     {
       mode = [ "n" ];
       action = ":DapTerminate<cr>";
       key = "<leader>dt";
-      options = { desc = "Terminate"; };
+      options = {
+        desc = "Terminate";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dap.ui.widgets').hover()<cr>";
       key = "<leader>dw";
-      options = { desc = "Hover Widget"; };
+      options = {
+        desc = "Hover Widget";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dapui').toggle()<cr>";
       key = "<leader>du";
-      options = { desc = "Toggle UI"; };
+      options = {
+        desc = "Toggle UI";
+      };
     }
     {
       mode = [ "n" ];
       action = "<cmd>lua require('dapui').eval()<cr>";
       key = "<leader>de";
-      options = { desc = "Eval"; };
+      options = {
+        desc = "Eval";
+      };
     }
   ];
 }
