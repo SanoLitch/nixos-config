@@ -1,18 +1,21 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ./boot.nix
     ./nix.nix
     ./locale.nix
     ./drivers.nix
     ./networking.nix
-    ./keyboard-layout.nix
     ./keyd.nix
-    # ./docker.nix
     ./podman.nix
-    ./outline
     ./ssh.nix
     ./steam.nix
     ./clash-verge.nix
+    ./zsh.nix
+    ./niri.nix
+    ./greetd.nix
+    ./clipboard.nix
+    ./polkit.nix
   ];
 
   environment.variables = {

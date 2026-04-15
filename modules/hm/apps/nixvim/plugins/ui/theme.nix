@@ -14,8 +14,8 @@
         };
         flavor = "mocha";
         italic = false;
-        bold = true;
-        dimInactive = false;
+        no_italic = true;
+        no_bold = false;
         transparent_background = true;
       };
     };

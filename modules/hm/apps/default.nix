@@ -4,36 +4,23 @@
 }:
 {
   imports = [
-    ./keepassxc.nix
     ./nixvim
     ./gemini.nix
-    ./yazi.nix
-    # ./firefox.nix
-    ./aerc.nix
-    ./khal.nix
-    ./email-accounts.nix
-    ./calendar-accounts.nix
-    ./bat.nix
-    ./lazygit.nix
-    ./git.nix
+    ./keepassxc.nix
+    ./mpv.nix
     ./zen.nix
   ];
 
+  xdg.configFile."autostart/blueman.desktop".text = "[Desktop Entry]\nHidden=true";
+  xdg.configFile."autostart/clash-verge.desktop".text = "[Desktop Entry]\nHidden=true";
+
   home.packages = with pkgs; [
-    btop
     brave
     pcloud
     telegram-desktop
-    ripgrep
-    devbox
     zoom-us
-    lazysql
-    lazydocker
-    wl-clipboard
-    ddcutil
-    unar
     libreoffice
-    spotify-player
+    spotify
     claude-code
     qbittorrent
   ];

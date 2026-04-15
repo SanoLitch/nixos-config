@@ -43,7 +43,7 @@ in
     ".gemini/settings.json" = {
       text = builtins.toJSON settings;
       force = true;
-      mutable = true;
+      # mutable = true;
     };
   };
 

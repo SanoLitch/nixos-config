@@ -8,7 +8,7 @@
   ];
 
   programs.niri.settings = {
-    outputs."DP-1" = {
+    outputs."Virtual-1" = {
       mode = {
         width = 3440;
         height = 1440;
