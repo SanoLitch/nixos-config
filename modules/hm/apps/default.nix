@@ -10,9 +10,14 @@
     ./mpv.nix
     ./zen.nix
   ];
+  xdg = {
+    configFile = {
 
-  xdg.configFile."autostart/blueman.desktop".text = "[Desktop Entry]\nHidden=true";
-  xdg.configFile."autostart/clash-verge.desktop".text = "[Desktop Entry]\nHidden=true";
+      "autostart/blueman.desktop".text = "[Desktop Entry]\nHidden=true";
+      "autostart/clash-verge.desktop".text = "[Desktop Entry]\nHidden=true";
+      "autostart/pcloud.desktop".text = "[Desktop Entry]\nHidden=true";
+    };
+  };
 
   home.packages = with pkgs; [
     brave

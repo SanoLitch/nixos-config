@@ -61,11 +61,17 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+  ];
   hardware = {
     graphics.enable = true;
     nvidia = {
       prime = {
+        offload.enable = true;
+        offload.enableOffloadCmd = true;
+        # sync.enable = true;
         intelBusId = "PCI:0@0:2:0";
         nvidiaBusId = "PCI:1@0:0:0";
       };

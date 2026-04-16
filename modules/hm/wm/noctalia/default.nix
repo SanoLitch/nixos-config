@@ -47,7 +47,14 @@ in
       dock.enabled = false;
 
       notifications = {
+        backgroundOpacity = lib.mkForce 0.9;
+        respectExpireTimeout = true;
         enableKeyboardLayoutToast = false;
+        saveToHistory = {
+          low = false;
+          normal = false;
+          critical = true;
+        };
       };
 
     };
