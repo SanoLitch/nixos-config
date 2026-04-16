@@ -3,9 +3,6 @@
   programs.git = {
     enable = true;
 
-    userName = secrets.git.personal.name;
-    userEmail = secrets.git.personal.email;
-
     settings = {
       core = {
         pager = "delta";
@@ -25,6 +22,10 @@
       };
       diff = {
         colorMoved = "default";
+      };
+      user = {
+        inherit (secrets.git.personal) name;
+        inherit (secrets.git.personal) email;
       };
     };
 

@@ -9,6 +9,13 @@
         };
         track-layout = "window";
       };
+
+      touchpad = {
+        dwt = true;
+        natural-scroll = false;
+        scroll-factor = 0.5;
+      };
+
       focus-follows-mouse.enable = true;
     };
 

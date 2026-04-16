@@ -61,8 +61,18 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
-
-  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware = {
+    graphics.enable = true;
+    nvidia = {
+      prime = {
+        intelBusId = "PCI:0@0:2:0";
+        nvidiaBusId = "PCI:1@0:0:0";
+      };
+      open = false;
+      modesetting.enable = true;
+    };
+  };
 
   # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)
   system.stateVersion = "25.05";
