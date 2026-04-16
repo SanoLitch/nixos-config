@@ -1,5 +1,5 @@
 {
-  description = "template for hydenix";
+  description = "Personal NixOS configuration Niri + Noctalia Shell";
 
   inputs = {
     # Your nixpkgs

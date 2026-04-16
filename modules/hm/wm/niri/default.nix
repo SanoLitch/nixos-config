@@ -27,6 +27,12 @@
             "nm-applet"
           ];
         }
+        {
+          command = [
+            "keepassxc"
+            "--minimized"
+          ];
+        }
       ];
 
       animations = {
