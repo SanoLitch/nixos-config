@@ -22,5 +22,6 @@
     ddcutil
     unar
     networkmanagerapplet
+    libfaketime
   ];
 }
