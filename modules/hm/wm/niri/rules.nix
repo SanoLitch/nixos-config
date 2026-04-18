@@ -10,6 +10,26 @@
 
     window-rules = [
       {
+        matches = [
+          { app-id = "nm-openconnect-auth-dialog"; }
+        ];
+        open-floating = true;
+      }
+      {
+        matches = [
+          { app-id = "nm-openconnect-auth-dialog"; }
+        ];
+        min-width = 800;
+        min-height = 600;
+        open-floating = true;
+        default-floating-position = {
+          x = 0;
+          y = 0;
+          relative-to = "top";
+        };
+        open-focused = true;
+      }
+      {
         draw-border-with-background = false;
         geometry-corner-radius = {
           top-left = 2.0;

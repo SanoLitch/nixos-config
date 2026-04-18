@@ -13,10 +13,31 @@
     ./rules.nix
   ];
 
+  home.packages = with pkgs; [
+    satty
+    grim
+    slurp
+    cliphist
+  ];
+
   programs.niri = {
     enable = true;
     settings = {
       spawn-at-startup = [
+        {
+          command = [
+            "sh"
+            "-c"
+            "wl-paste --type text --watch cliphist store"
+          ];
+        }
+        {
+          command = [
+            "sh"
+            "-c"
+            "wl-paste --type image --watch cliphist store"
+          ];
+        }
         {
           command = [
             "noctalia-shell"
@@ -49,6 +70,7 @@
       };
 
       prefer-no-csd = true;
+
       hotkey-overlay.skip-at-startup = true;
 
       xwayland-satellite = {

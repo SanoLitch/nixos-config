@@ -23,5 +23,7 @@
     unar
     networkmanagerapplet
     libfaketime
+    jq
+    wtype
   ];
 }

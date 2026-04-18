@@ -16,7 +16,7 @@
         scroll-factor = 0.5;
       };
 
-      focus-follows-mouse.enable = true;
+      focus-follows-mouse.enable = false;
     };
 
     gestures.hot-corners = {
@@ -98,18 +98,39 @@
       "Mod+Shift+Minus".action.set-window-height = "-10%";
       "Mod+Shift+Equal".action.set-window-height = "+10%";
 
-      # Column merging (Consume/Expel) with ö/ä
+      # Column merging (Consume/Expel) with ,/.
       "Mod+Comma".action.consume-or-expel-window-left = { };
       "Mod+Period".action.consume-or-expel-window-right = { };
 
       # Screenshots
-      "Mod+P".action.screenshot = {
-        show-pointer = false;
-      };
-      "Mod+Shift+P".action.screenshot-window = { };
-      "Mod+Shift+Ctrl+P".action.screenshot-screen = {
-        show-pointer = false;
-      };
+      "Mod+P".action.spawn = [
+        "sh"
+        "-c"
+        "grim -g \"$(slurp)\" - | satty --copy-command=\"wl-copy\" --early-exit -f -"
+      ];
+      "Mod+Shift+P".action.spawn = [
+        "sh"
+        "-c"
+        "grim - | satty --copy-command=\"wl-copy\" --early-exit -f -"
+      ];
+
+      # Clipboard history
+      "Mod+V".action.spawn = [
+        "sh"
+        "-c"
+        "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+      ];
+
+      "Mod+S".action.spawn = "keepmenu";
+      "Mod+Shift+S".action.spawn = [
+        "keepmenu"
+        "-t"
+      ];
+      "Mod+N".action.spawn = [
+        "sh"
+        "-c"
+        "nmcli -t -f name,type connection show | grep vpn | cut -d: -f1 | fuzzel --dmenu | xargs -r nmcli connection up"
+      ];
 
       # Volume/Brightness keys
       "XF86AudioRaiseVolume".action.spawn = [

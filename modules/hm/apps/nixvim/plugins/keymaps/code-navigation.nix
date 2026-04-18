@@ -11,6 +11,19 @@
       action = "<cmd>lua require('flash').jump()<cr>";
       options.desc = "Flash";
     }
+
+    {
+      mode = [
+        "n"
+        "v"
+      ]; # Normal mode
+      key = "<leader>v";
+      action = "<C-v>";
+      options = {
+        silent = true;
+        desc = "Visual Block Mode";
+      };
+    }
   ];
 
   plugins.telescope.keymaps = {

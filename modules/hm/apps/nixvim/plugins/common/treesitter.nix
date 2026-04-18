@@ -3,6 +3,15 @@
     mini-ai.enable = true;
     treesitter = {
       enable = true;
+      incrementalSelection = {
+        enable = true;
+        keymaps = {
+          initSelection = "<Enter>"; # Нажал Enter — выделил слово
+          nodeIncremental = "<Enter>"; # Нажал еще раз — выделил строку/выражение
+          nodeDecremental = "<BS>"; # Backspace — уменьшить выделение
+          scopeIncremental = "<TAB>"; # Выделить всю область видимости (функцию)
+        };
+      };
       settings = {
         highlight = {
           enable = true;
