@@ -6,6 +6,12 @@
         matches = [ { namespace = "^noctalia-wallpaper*"; } ];
         place-within-backdrop = true;
       }
+      # {
+      #   matches = [ { namespace = "^noctalia-(background|launcher-overlay|dock)-.*$"; } ];
+      #   background-effect = {
+      #     xray = false;
+      #   };
+      # }
     ];
 
     window-rules = [
@@ -39,6 +45,10 @@
         };
         clip-to-geometry = true;
         opacity = 0.94;
+        # background-effect = {
+        #   blur = true;
+        #   xray = false;
+        # };
       }
       {
         matches = [ { is-active = true; } ];

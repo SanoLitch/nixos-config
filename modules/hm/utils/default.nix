@@ -10,6 +10,7 @@
     ./lazygit.nix
     ./rigrep.nix
     ./yazi.nix
+    ./easy-effects
   ];
 
   home.packages = with pkgs; [

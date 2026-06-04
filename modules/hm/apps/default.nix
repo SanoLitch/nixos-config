@@ -12,7 +12,6 @@
   ];
   xdg = {
     configFile = {
-
       "autostart/blueman.desktop".text = "[Desktop Entry]\nHidden=true";
       "autostart/clash-verge.desktop".text = "[Desktop Entry]\nHidden=true";
       "autostart/pcloud.desktop".text = "[Desktop Entry]\nHidden=true";
@@ -26,7 +25,7 @@
     zoom-us
     libreoffice
     spotify
-    claude-code
     qbittorrent
+    megasync
   ];
 }

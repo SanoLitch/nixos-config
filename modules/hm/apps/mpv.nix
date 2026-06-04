@@ -6,42 +6,42 @@ in
 {
   home.packages = with pkgs; [
     ff2mpv
-    mpv-handler
+    # mpv-handler
     xdg-utils
-    yt-dlp
+    # yt-dlp
   ];
 
   # 1. Конфиг для mpv-handler
   # Он лежит в ~/.config/mpv-handler/config.toml
-  xdg.configFile."mpv-handler/config.toml".text = ''
-    # Путь к плееру (обычно просто mpv достаточно)
-    mpv_binary = "${pkgs.mpv}/bin/mpv"
-
-    # Качество видео (best / 2160p / 1080p / 720p)
-    quality = "best"
-
-    # Опции запуска MPV (например, запуск в фуллскрин)
-    # flag = ["--fs"] 
-  '';
-
-  # 2. Регистрация MIME-типа (ассоциация mpv:// с приложением)
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/mpv" = [ "mpv-handler.desktop" ];
-      # На всякий случай регистрируем и для ytdl протокола, если вдруг встретится
-      "x-scheme-handler/ytdl" = [ "mpv-handler.desktop" ];
-    };
-  };
+  # xdg.configFile."mpv-handler/config.toml".text = ''
+  #   # Путь к плееру (обычно просто mpv достаточно)
+  #   mpv_binary = "${pkgs.mpv}/bin/mpv"
+  #
+  #   # Качество видео (best / 2160p / 1080p / 720p)
+  #   quality = "best"
+  #
+  #   # Опции запуска MPV (например, запуск в фуллскрин)
+  #   # flag = ["--fs"]
+  # '';
+  #
+  # # 2. Регистрация MIME-типа (ассоциация mpv:// с приложением)
+  # xdg.mimeApps = {
+  #   enable = true;
+  #   defaultApplications = {
+  #     "x-scheme-handler/mpv" = [ "mpv-handler.desktop" ];
+  #     # На всякий случай регистрируем и для ytdl протокола, если вдруг встретится
+  #     "x-scheme-handler/ytdl" = [ "mpv-handler.desktop" ];
+  #   };
+  # };
 
   xdg.configFile."mpv/shaders".source = shadersSrc;
 
   programs.mpv = {
     enable = true;
-    scripts = [
-      pkgs.mpvScripts.uosc
-      pkgs.mpvScripts.thumbfast
-    ];
+    # scripts = [
+    #   pkgs.mpvScripts.uosc
+    #   pkgs.mpvScripts.thumbfast
+    # ];
 
     config = {
       profile = "gpu-hq";

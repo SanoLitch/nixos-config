@@ -2,11 +2,21 @@
   inputs,
   hostname,
   pkgs,
+  lib,
   secrets,
   ...
 }:
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "pcloud"
+      "zoom"
+      "spotify"
+      "steam"
+      "steam-unwrapped"
+      "megasync"
+    ];
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
