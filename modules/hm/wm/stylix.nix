@@ -1,11 +1,17 @@
-{ inputs, pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.stylix
   ];
 
-  gtk.gtk4.theme = config.gtk.theme;
+  gtk.gtk4.theme = lib.mkForce config.gtk.theme;
 
   stylix = {
     enable = true;
