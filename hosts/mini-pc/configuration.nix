@@ -16,6 +16,7 @@
       "steam"
       "steam-unwrapped"
       "megasync"
+      "antigravity-cli"
     ];
 
   imports = [

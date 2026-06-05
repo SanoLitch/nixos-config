@@ -3,7 +3,7 @@
   programs.noctalia-shell.settings.bar = {
     density = "default";
     position = "top";
-    barType = "floating";
+    barType = "simple";
     showCapsule = true;
     capsuleOpacity = lib.mkForce 0.35;
     useSeparateOpacity = true;

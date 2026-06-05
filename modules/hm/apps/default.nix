@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ./antigravity.nix
     ./nixvim
     ./gemini.nix
     ./keepassxc.nix
