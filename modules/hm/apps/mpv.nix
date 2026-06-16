@@ -38,10 +38,10 @@ in
 
   programs.mpv = {
     enable = true;
-    # scripts = [
-    #   pkgs.mpvScripts.uosc
-    #   pkgs.mpvScripts.thumbfast
-    # ];
+    scripts = [
+      pkgs.mpvScripts.uosc
+      pkgs.mpvScripts.thumbfast
+    ];
 
     config = {
       profile = "gpu-hq";
