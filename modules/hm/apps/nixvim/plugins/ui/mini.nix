@@ -6,9 +6,9 @@
         delay = 1000;
       };
     };
-    min-surround = {
+    mini-surround = {
       enable = true;
-      settngs = {
+      settings = {
         n_lines = 100;
         silent = true;
       };
