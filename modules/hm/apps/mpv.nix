@@ -36,6 +36,11 @@ in
 
   xdg.configFile."mpv/shaders".source = shadersSrc;
 
+  xdg.configFile."mpv/scripts/history.lua".source = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/Eisa01/mpv-scripts/master/scripts/SimpleHistory.lua";
+    sha256 = "08055mpsdpw41qcfx8zahnav215pls5w8s9az6vv9ssm73fgdfhw";
+  };
+
   programs.mpv = {
     enable = true;
     scripts = [
@@ -44,6 +49,7 @@ in
     ];
 
     config = {
+      save-position-on-quit = "yes";
       profile = "gpu-hq";
       gpu-api = "vulkan";
       vo = "gpu";

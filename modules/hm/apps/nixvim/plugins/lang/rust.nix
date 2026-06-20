@@ -22,7 +22,7 @@ in
     crates = {
       enable = true;
       settings = {
-        autoLoad = true;
+        autoload = true;
         autoupdate = true;
         smart_insert = true;
       };
