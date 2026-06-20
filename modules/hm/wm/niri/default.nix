@@ -50,8 +50,21 @@
         }
         {
           command = [
+            "solaar"
+            "-w"
+            "hide"
+            "--restart-on-wake-up"
+          ];
+        }
+        {
+          command = [
             "keepassxc"
             "--minimized"
+          ];
+        }
+        {
+          command = [
+            "pcloud"
           ];
         }
       ];
