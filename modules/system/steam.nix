@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.steam = {
     enable = true;
@@ -6,4 +6,8 @@
     dedicatedServer.openFirewall = true;
     protontricks.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    moonlight-qt
+  ];
 }

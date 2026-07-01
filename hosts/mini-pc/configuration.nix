@@ -7,17 +7,22 @@
   ...
 }:
 {
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "pcloud"
-      "zoom"
-      "spotify"
-      "steam"
-      "steam-unwrapped"
-      "megasync"
-      "antigravity-cli"
+  nixpkgs.config = {
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "pcloud"
+        "zoom"
+        "spotify"
+        "steam"
+        "steam-unwrapped"
+        "megasync"
+        "antigravity-cli"
+      ];
+    permittedInsecurePackages = [
+      "pnpm-9.15.9"
     ];
+  };
 
   imports = [
     inputs.home-manager.nixosModules.home-manager

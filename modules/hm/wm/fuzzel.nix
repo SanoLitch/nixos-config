@@ -1,7 +1,11 @@
 { pkgs, ... }:
+let
+  fuzzel-bluetooth = import ./fuzzel-bluetooth.nix { inherit pkgs; };
+in
 {
   home.packages = with pkgs; [
     keepmenu
+    fuzzel-bluetooth
   ];
 
   xdg.configFile."keepmenu/config.ini".text = ''

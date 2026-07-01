@@ -36,16 +36,16 @@
     };
 
     fonts = {
-      # Основной интерфейс (Cantarell)
+      # Основной интерфейс
       sansSerif = {
-        package = pkgs.cantarell-fonts;
-        name = "Cantarell Regular";
+        package = pkgs.inter;
+        name = "Inter";
       };
 
-      # Документы (тот же Cantarell)
+      # Документы
       serif = {
-        package = pkgs.cantarell-fonts;
-        name = "Cantarell Regular";
+        package = pkgs.inter;
+        name = "Inter";
       };
 
       # Терминал и Код (Caskaydia Cove)

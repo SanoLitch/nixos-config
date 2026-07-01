@@ -28,6 +28,7 @@
       "Mod+T".action.spawn = "kitty";
       "Mod+A".action.spawn = "fuzzel";
       "Mod+B".action.spawn = "zen-twilight";
+      "Mod+Shift+B".action.spawn = "fuzzel-bluetooth";
       "Mod+E".action.spawn = [
         "noctalia-shell"
         "ipc"
