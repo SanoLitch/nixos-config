@@ -1,4 +1,9 @@
 {
   "name": "Me",
-  "email": "my@gmail.com"
+  "email": "my@gmail.com",
+  "work": {
+    "name": "Me",
+    "email": "me@work.com",
+    "host": "git.work.com"
+  }
 }

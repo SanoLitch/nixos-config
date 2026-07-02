@@ -38,8 +38,8 @@
     device = "/dev/disk/by-uuid/6885-F20A";
     fsType = "vfat";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "fmask=0077"
+      "dmask=0077"
     ];
   };
 
@@ -58,4 +58,6 @@
   services.udev.extraRules = ''
     KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';
+
+  users.groups.i2c = { };
 }

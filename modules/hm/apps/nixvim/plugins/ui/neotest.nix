@@ -5,7 +5,7 @@
     adapters = {
       jest.enable = true;
       vitest.enable = true;
-      playwright.enabke = true;
+      playwright.enable = true;
     };
     settings = {
       output = {

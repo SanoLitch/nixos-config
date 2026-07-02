@@ -1,21 +1,22 @@
 { ... }:
 {
   imports = [
-    ./hyprland
     ./apps
-    ./apps/mpv.nix
-    ./hyprland/waybar/resolution-module.nix
+    ./wm
+    ./terminal
+    ./utils
   ];
 
-  hydenix = {
-    hm = {
-      hyprland = {
-        nvidia.enable = false;
-        monitors = {
-          enable = true;
-          overrideConfig = "monitor = desc:Xiaomi Corporation Mi Monitor, 3440x1440@144, auto, 1.6";
-        };
+  programs.niri.settings = {
+    outputs."DP-1" = {
+      mode = {
+        width = 3440;
+        height = 1440;
+        refresh = 144.0;
       };
+      scale = 1.6;
     };
   };
+
+  home.stateVersion = "25.05";
 }

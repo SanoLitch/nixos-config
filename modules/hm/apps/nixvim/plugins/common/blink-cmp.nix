@@ -1,10 +1,10 @@
-# { lib, ... }:
+{ lib, ... }:
 # let
 #   inherit (lib.nixvim) mkRaw;
 # in
 {
   plugins = {
-    # luasnip.enable = true;
+    luasnip.enable = true;
     blink-cmp = {
       enable = true;
       settings = {

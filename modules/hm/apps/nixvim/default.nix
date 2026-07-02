@@ -7,6 +7,12 @@
   programs.nixvim = {
     enable = true;
 
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+      };
+    };
+
     imports = [
       ./plugins
     ];

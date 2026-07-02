@@ -1,24 +1,27 @@
 {
-  description = "template for hydenix";
+  description = "Personal NixOS configuration Niri + Noctalia Shell";
 
   inputs = {
     # Your nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Hydenix
-    hydenix = {
-      # Available inputs:
-      # Main: github:richen604/hydenix
-      # Commit: github:richen604/hydenix/<commit-hash>
-      # Version: github:richen604/hydenix/v1.0.0 - note the version may not be compatible with this template
-      url = "github:richen604/hydenix";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/legacy-v4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-      # uncomment the below if you know what you're doing, hydenix updates nixos-unstable every week or so
+    niri = {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Hardware Configuration's, used in ./configuration.nix. Feel free to remove if unused
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -34,6 +37,23 @@
         # home-manager.follows = "home-manager";
       };
     };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  nixConfig = {
+    extra-substituters = [
+      "https://noctalia.cachix.org"
+      "https://niri.cachix.org"
+      "https://zen-browser.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+      "zen-browser.cachix.org-1:z/QLGrEkiBYF/7zoHX1Hpuv0B26QrmbVBSy9yDD2tSs="
+    ];
   };
   outputs =
     { ... }@inputs:
@@ -66,6 +86,7 @@
         pc = mkNixosSystem "pc" [ ./hosts/pc/configuration.nix ];
         dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
+        vm = mkNixosSystem "vm" [ ./hosts/vm/configuration.nix ];
       };
     };
 }

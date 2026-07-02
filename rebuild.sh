@@ -9,6 +9,4 @@ hostname=${1:-pc} # Use the first argument as hostname, default to 'pc' if not p
 
 sudo echo "rebuilding system for $hostname"
 
-sudo nixos-rebuild switch --flake ".#$hostname" # --log-format internal-json -v
-
-hyprctl reload
+sudo nixos-rebuild switch boot --flake ".#$hostname" # --log-format internal-json -v

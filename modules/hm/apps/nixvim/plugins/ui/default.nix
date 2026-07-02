@@ -20,5 +20,6 @@
     ./theme.nix
     ./firenvim.nix
     ./kitty-scrollback.nix
+    ./minuet.nix
   ];
 }

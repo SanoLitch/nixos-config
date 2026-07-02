@@ -1,5 +1,15 @@
 {
   "username": "me",
   "password": "password",
-  "groups": ["wheel", "networkmanager", "video", "keyd", "docker", "network"]
+  "groups": [
+    "wheel",
+    "networkmanager",
+    "video",
+    "keyd",
+    "docker",
+    "network",
+    "i2c",
+    "kvm",
+    "render"
+  ]
 }

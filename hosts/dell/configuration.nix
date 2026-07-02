@@ -6,15 +6,13 @@
   ...
 }:
 {
-  nixpkgs.overlays = [
-    inputs.hydenix.overlays.default
-  ];
+  nixpkgs.config.allowUnfree = true;
 
   imports = [
-    # hydenix inputs - Required modules, don't modify unless you know what you're doing
-    inputs.hydenix.inputs.home-manager.nixosModules.home-manager
-    inputs.hydenix.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
+
     ../../modules/system # Your custom system modules
+    ../../modules/system/default.mini-pc.nix # Your custom system modules
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware
@@ -34,33 +32,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd # SSD storage
   ];
 
-  # If enabling NVIDIA, you will be prompted to configure hardware.nvidia
-  hardware.nvidia = {
-    open = false; # For newer cards, you may want open drivers
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    prime = {
-      # For hybrid graphics (laptops), configure PRIME:
-      #     amdBusId = "PCI:0:2:0"; # Run `lspci | grep VGA` to get correct bus IDs
-      #     intelBusId = "PCI:0:2:0"; # if you have intel graphics
-      #     nvidiaBusId = "PCI:1:0:0";
-      offload.enable = false; # Or disable PRIME offloading if you don't care
-    };
-  };
-
-  services.thermald.enable = true;
-  services.auto-cpufreq.enable = true;
-  # services.auto-cpufreq.settings = {
-  #   battery = {
-  #     governor = "powersave";
-  #     turbo = "auto";
-  #   };
-  #   charger = {
-  #     governor = "performance";
-  #     turbo = "auto";
-  #   };
-  # };
-
   # Home Manager Configuration - manages user-specific configurations (dotfiles, themes, etc.)
   home-manager = {
     useGlobalPkgs = true;
@@ -74,12 +45,12 @@
       { ... }:
       {
         imports = [
-          inputs.hydenix.homeModules.default
           ../../modules/hm/default.dell.nix
         ];
       };
   };
 
+  # User Account Setup - REQUIRED: Change "hydenix" to your desired username (must match above)
   users.users.${secrets.user.username} = {
     isNormalUser = true;
     initialPassword = secrets.user.password; # SECURITY: Change this password after first login with `passwd`
@@ -87,14 +58,26 @@
     shell = pkgs.zsh; # Default shell (options: pkgs.bash, pkgs.zsh, pkgs.fish)
   };
 
-  # Hydenix Configuration - Main configuration for the Hydenix desktop environment
-  hydenix = {
-    enable = true; # Enable Hydenix modules
-    # Basic System Settings (REQUIRED):
-    hostname = "dell-laptop"; # REQUIRED: Set your computer's network name (change to something unique)
-    timezone = "Europe/Moscow"; # REQUIRED: Set timezone (examples: "America/New_York", "Europe/London", "Asia/Tokyo")
-    locale = "en_US.UTF-8"; # REQUIRED: Set locale/language (examples: "en_US.UTF-8", "en_GB.UTF-8", "de_DE.UTF-8")
-    # For more configuration options, see: ./docs/options.md
+  time.timeZone = "Europe/Moscow";
+  i18n.defaultLocale = "en_US.UTF-8";
+  networking.hostName = hostname;
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+  ];
+  hardware = {
+    graphics.enable = true;
+    nvidia = {
+      prime = {
+        offload.enable = true;
+        offload.enableOffloadCmd = true;
+        # sync.enable = true;
+        intelBusId = "PCI:0@0:2:0";
+        nvidiaBusId = "PCI:1@0:0:0";
+      };
+      open = false;
+      modesetting.enable = true;
+    };
   };
 
   # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)

@@ -7,8 +7,21 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
 
     # Настройка VBAN приемника
+    wireplumber.extraConfig."51-scarlett-auto-profile" = {
+      "monitor.alsa.rules" = [
+        {
+          matches = [ { "device.name" = "~alsa_card.usb-Focusrite_Scarlett_2i2_USB.*"; } ];
+          actions.update-props = {
+            "api.acp.auto-profile" = true;
+            "api.acp.auto-port" = true;
+          };
+        }
+      ];
+    };
+
     extraConfig.pipewire."99-vban-receiver" = {
       # "context.properties" = {
       #   "default.clock.rate" = 48000;
@@ -32,4 +45,15 @@
 
   # Открываем UDP порт для VBAN
   networking.firewall.allowedUDPPorts = [ 6980 ];
+
+  environment.systemPackages = with pkgs; [
+    bluez
+    bluez-tools
+    blueman
+    pipewire
+    wireplumber
+    pavucontrol
+    pamixer
+    playerctl
+  ];
 }

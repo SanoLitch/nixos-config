@@ -14,15 +14,18 @@ in
             __raw = "require('rustaceanvim.config').get_codelldb_adapter('${codelldb_path}', '${liblldb_path}')";
           };
         };
-      };
-      server = {
-        cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
+        server = {
+          cmd = [ "${pkgs.rust-analyzer}/bin/rust-analyzer" ];
+        };
       };
     };
     crates = {
-      autoload = true;
-      autoupdate = true;
-      smart_insert = true;
+      enable = true;
+      settings = {
+        autoload = true;
+        autoupdate = true;
+        smart_insert = true;
+      };
     };
   };
 

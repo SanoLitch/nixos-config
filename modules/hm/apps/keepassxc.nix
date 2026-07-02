@@ -15,6 +15,7 @@ let
       Enabled = true;
     };
     GUI = {
+      ApplicationTheme = "dark";
       MinimizeOnClose = true;
       MinimizeToTray = true;
       ShowTrayIcon = true;
@@ -41,6 +42,9 @@ let
   configFile = iniFormat.generate "keepassxc.ini" keepassxcSettings;
 in
 {
+  # Disable gnome-keyring so KeePassXC can claim the Secret Service (FdoSecrets)
+  services.gnome-keyring.enable = lib.mkForce false;
+
   programs.keepassxc = {
     enable = true;
     package = pkgs.keepassxc;

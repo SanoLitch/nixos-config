@@ -2,18 +2,31 @@
   inputs,
   hostname,
   pkgs,
+  lib,
   secrets,
   ...
 }:
 {
-  nixpkgs.overlays = [
-    inputs.hydenix.overlays.default
-  ];
+  nixpkgs.config = {
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "pcloud"
+        "zoom"
+        "spotify"
+        "steam"
+        "steam-unwrapped"
+        "megasync"
+        "antigravity-cli"
+      ];
+    permittedInsecurePackages = [
+      "pnpm-9.15.9"
+    ];
+  };
 
   imports = [
-    # hydenix inputs - Required modules, don't modify unless you know what you're doing
-    inputs.hydenix.inputs.home-manager.nixosModules.home-manager
-    inputs.hydenix.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
+
     ../../modules/system # Your custom system modules
     ../../modules/system/default.mini-pc.nix # Your custom system modules
     ./hardware-configuration.nix # Auto-generated hardware config
@@ -48,7 +61,6 @@
       { ... }:
       {
         imports = [
-          inputs.hydenix.homeModules.default
           ../../modules/hm/default.mini-pc.nix
         ];
       };
@@ -62,15 +74,11 @@
     shell = pkgs.zsh; # Default shell (options: pkgs.bash, pkgs.zsh, pkgs.fish)
   };
 
-  # Hydenix Configuration - Main configuration for the Hydenix desktop environment
-  hydenix = {
-    enable = true; # Enable Hydenix modules
-    # Basic System Settings (REQUIRED):
-    hostname = "mini-pc"; # REQUIRED: Set your computer's network name (change to something unique)
-    timezone = "Europe/Moscow"; # REQUIRED: Set timezone (examples: "America/New_York", "Europe/London", "Asia/Tokyo")
-    locale = "en_US.UTF-8"; # REQUIRED: Set locale/language (examples: "en_US.UTF-8", "en_GB.UTF-8", "de_DE.UTF-8")
-    # For more configuration options, see: ./docs/options.md
-  };
+  time.timeZone = "Europe/Moscow";
+  i18n.defaultLocale = "en_US.UTF-8";
+  networking.hostName = hostname;
+
+  hardware.graphics.enable = true;
 
   # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)
   system.stateVersion = "25.05";

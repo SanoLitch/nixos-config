@@ -8,11 +8,11 @@ let
     id=${name}
     uuid=657edaa9-4b92-4106-b7ca-3dddb59b1512
     type=vpn
-    autoconnect=false
+    autoconnect=true
 
     [vpn]
     authtype=password
-    autoconnect-flags=0
+    autoconnect-flags=1
     certsigs-flags=0
     cookie-flags=2
     disable_udp=no
