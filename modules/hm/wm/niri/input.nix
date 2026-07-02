@@ -27,7 +27,10 @@
       # Mod key (Super/Windows key)
       "Mod+T".action.spawn = "kitty";
       "Mod+A".action.spawn = "fuzzel";
-      "Mod+B".action.spawn = "zen-twilight";
+      "Mod+B".action.spawn = [
+        "zen-twilight"
+        "--new-window"
+      ];
       "Mod+E".action.spawn = [
         "noctalia-shell"
         "ipc"

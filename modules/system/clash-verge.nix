@@ -9,4 +9,8 @@
     serviceMode = true;
     autoStart = true;
   };
+
+  networking.firewall = {
+    checkReversePath = false;
+  };
 }
