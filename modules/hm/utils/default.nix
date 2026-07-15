@@ -19,6 +19,7 @@
     devbox
     lazysql
     lazydocker
+    k9s
     wl-clipboard
     ddcutil
     unar
