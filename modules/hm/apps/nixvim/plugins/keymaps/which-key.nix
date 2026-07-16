@@ -35,6 +35,16 @@
         }
 
         {
+          __unkeyed-1 = "<leader>l";
+          mode = [
+            "n"
+            "x"
+            "o"
+          ];
+          group = "Syntax";
+        }
+
+        {
           __unkeyed-1 = "<leader>f";
           mode = "n";
           group = "Find";

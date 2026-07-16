@@ -1,36 +1,11 @@
 { inputs, pkgs, ... }:
 let
-  # arcWtfTheme = builtins.fetchGit {
-  #   url = "https://github.com/KiKaraage/ArcWTF.git";
-  #   ref = "main";
-  #   rev = "b87561d5ada2fe8c67fa9250f4fc2ee50568cc63";
-  # };
-
   extension = shortId: guid: {
     name = guid;
     value = {
       install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
       installation_mode = "normal_installed";
     };
-  };
-
-  prefs = {
-    # Check these out at about:config
-    # "extensions.autoDisableScopes" = 0;
-    # ...
-    "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
-    "cookiebanners.service.mode" = 2; # Block cookie banners
-    "privacy.donottrackheader.enabled" = true;
-    "privacy.trackingprotection.emailtracking.enabled" = true;
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.fingerprinting.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
-
-    "extensions.pocket.enabled" = false; # Disable Pocket integration
-    "media.ffmpeg.vaapi.enabled" = true; # Enable hardware video acceleration
-    "browser.aboutConfig.showWarning" = false; # Disable about:config warning
-    # "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-    # "svg.context-properties.content.enabled" = true;
   };
 
   extensions = [
@@ -51,7 +26,6 @@ let
 
 in
 {
-  # home.nix
   imports = [
     # inputs.zen-browser.homeModules.beta
     # or
@@ -63,7 +37,10 @@ in
   programs.zen-browser = {
     enable = true;
     setAsDefaultBrowser = true;
-    nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    nativeMessagingHosts = [
+      pkgs.firefoxpwa
+      pkgs.tridactyl-native
+    ];
     policies = {
       ExtensionSettings = builtins.listToAttrs extensions;
       SearchEngines = {
@@ -85,4 +62,25 @@ in
       };
     };
   };
+
+  xdg.configFile."tridactyl/tridactylrc".text = ''
+    set editorcmd kitty nvim %f
+
+    unbind <Space>
+
+    " Группа подсказок (Space + f)
+    bind <Space>fa hint -Jc a
+    bind <Space>fb hint -Jc button
+    bind <Space>fi hint -Jc input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), textarea, [contenteditable="true"], [contenteditable=""], [role="textbox"], [role="searchbox"], [role="combobox"]
+    bind <Space>ft hint -Jc [role="tab"], [aria-selected], [aria-controls], [class*="tab" i]
+    bind <Space>fm hint -Jc dialog, [role="dialog"], [role="alertdialog"], [aria-modal="true"], [class*="modal" i] button, [class*="modal" i] [aria-label*="close" i]
+    bind <Space>fd hint -Jc [aria-haspopup="true"], [aria-expanded], [role="menuitem"], [role="option"], [role="listbox"], [class*="dropdown" i]
+    bind <Space>fl hint -Jc [style*="z-index"], [class*="overlay" i], [class*="fixed" i], [class*="sticky" i], [class*="popup" i], [class*="floating" i], [class*="layer" i], [class*="toast" i], [popover]
+
+    " Группа управления вкладками (Space + b)
+    bind <Space>bd tabclose
+    bind <Space>bo composite tabclosealltoleft ; tabclosealltoright
+    bind K tabprev
+    bind J tabnext
+  '';
 }
