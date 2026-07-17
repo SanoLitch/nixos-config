@@ -11,6 +11,7 @@
     ./rigrep.nix
     ./yazi.nix
     ./easy-effects
+    ./k9s
   ];
 
   home.packages = with pkgs; [

@@ -1,0 +1,10 @@
+shortCut: Ctrl-J
+confirm: false
+description: "JSON Logs"
+scopes:
+  - container
+command: bash
+background: false
+args:
+  - -c
+  - "kubectl logs -f $POD -c $NAME -n $NAMESPACE --context $CONTEXT | hl"
