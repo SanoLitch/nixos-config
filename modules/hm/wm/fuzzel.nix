@@ -37,10 +37,6 @@ in
       };
 
       key-bindings = {
-        prev = "Control+k";
-        next = "Control+j";
-        cursor-left = "Control+h";
-        cursor-right = "Control+l";
         prev-page = "Control+u";
         next-page = "Control+d";
         execute = "Return KP_Enter Control+m";

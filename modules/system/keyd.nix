@@ -1,6 +1,11 @@
 { pkgs, lib, ... }:
 let
   commonSettings = {
+    main = {
+      capslock = "overload(control, esc)";
+      space = "overload(nav, space)";
+      leftcontrol = "leftalt";
+    };
     "meta_mac:C" = {
       c = "C-insert";
       v = "S-insert";
@@ -17,6 +22,14 @@ let
       right = "end";
       backspace = "C-backspace";
       delete = "C-delete";
+    };
+    nav = {
+      h = "left";
+      j = "down";
+      k = "up";
+      l = "right";
+      d = "backspace";
+      x = "delete";
     };
     control = {
       space = "M-space";
@@ -36,10 +49,8 @@ in
         settings = lib.mkMerge [
           {
             main = {
-              capslock = "overload(control, esc)";
               leftmeta = "layer(meta_mac)";
               leftalt = "leftmeta";
-              leftcontrol = "leftalt";
             };
           }
           commonSettings
@@ -50,9 +61,7 @@ in
         settings = lib.mkMerge [
           {
             main = {
-              capslock = "overload(control, esc)";
               leftalt = "layer(meta_mac)";
-              leftcontrol = "leftalt";
             };
           }
           commonSettings
