@@ -47,6 +47,10 @@ in
 
       f = "$(pay-respects zsh)";
       fuck = "$(pay-respects zsh)";
+
+      tarz = "tar -cvzf";
+      tarx = "tar -xvzf";
+      tart = "tar -tvzf";
     };
   };
 }
