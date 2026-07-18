@@ -66,20 +66,20 @@ in
   xdg.configFile."tridactyl/tridactylrc".text = ''
     set editorcmd kitty nvim %f
 
-    unbind <Space>
+    unbind f
+    bind ff hint
+    bind fa hint -Jc a
+    bind fb hint -Jc button
+    bind fi hint -Jc input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), textarea, [contenteditable="true"], [contenteditable=""], [role="textbox"], [role="searchbox"], [role="combobox"]
+    bind ft hint -Jc [role="tab"], [aria-selected], [aria-controls], [class*="tab" i]
+    bind fm hint -Jc dialog, [role="dialog"], [role="alertdialog"], [aria-modal="true"], [class*="modal" i] button, [class*="modal" i] [aria-label*="close" i]
+    bind fd hint -Jc [aria-haspopup="true"], [aria-expanded], [role="menuitem"], [role="option"], [role="listbox"], [class*="dropdown" i]
+    bind fl hint -Jc [style*="z-index"], [class*="overlay" i], [class*="fixed" i], [class*="sticky" i], [class*="popup" i], [class*="floating" i], [class*="layer" i], [class*="toast" i], [popover]
 
-    " Группа подсказок (Space + f)
-    bind <Space>fa hint -Jc a
-    bind <Space>fb hint -Jc button
-    bind <Space>fi hint -Jc input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), textarea, [contenteditable="true"], [contenteditable=""], [role="textbox"], [role="searchbox"], [role="combobox"]
-    bind <Space>ft hint -Jc [role="tab"], [aria-selected], [aria-controls], [class*="tab" i]
-    bind <Space>fm hint -Jc dialog, [role="dialog"], [role="alertdialog"], [aria-modal="true"], [class*="modal" i] button, [class*="modal" i] [aria-label*="close" i]
-    bind <Space>fd hint -Jc [aria-haspopup="true"], [aria-expanded], [role="menuitem"], [role="option"], [role="listbox"], [class*="dropdown" i]
-    bind <Space>fl hint -Jc [style*="z-index"], [class*="overlay" i], [class*="fixed" i], [class*="sticky" i], [class*="popup" i], [class*="floating" i], [class*="layer" i], [class*="toast" i], [popover]
-
-    " Группа управления вкладками (Space + b)
-    bind <Space>bd tabclose
-    bind <Space>bo composite tabclosealltoleft ; tabclosealltoright
+    unbind t
+    bind tt tabopen
+    bind tbd tabclose
+    bind tbo composite tabclosealltoleft ; tabclosealltoright
     bind K tabprev
     bind J tabnext
   '';
