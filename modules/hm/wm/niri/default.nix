@@ -62,11 +62,6 @@
             "--minimized"
           ];
         }
-        {
-          command = [
-            "pcloud"
-          ];
-        }
       ];
 
       animations = {

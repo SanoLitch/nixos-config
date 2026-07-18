@@ -69,7 +69,7 @@
             git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
             vpn = builtins.fromJSON (builtins.readFile "${local_config}/common/vpn.json");
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
-            apps = builtins.fromJSON (builtins.readFile "${local_config}/common/apps.json");
+            sync = builtins.fromJSON (builtins.readFile "${local_config}/common/sync.json");
             mcp = builtins.fromJSON (builtins.readFile "${local_config}/common/mcp.json");
           };
         in

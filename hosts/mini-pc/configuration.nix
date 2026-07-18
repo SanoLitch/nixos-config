@@ -11,12 +11,10 @@
     allowUnfreePredicate =
       pkg:
       builtins.elem (lib.getName pkg) [
-        "pcloud"
         "zoom"
         "spotify"
         "steam"
         "steam-unwrapped"
-        "megasync"
         "antigravity-cli"
       ];
     permittedInsecurePackages = [
