@@ -3,10 +3,27 @@
   hostname,
   pkgs,
   secrets,
+  lib,
   ...
 }:
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "zoom"
+        "spotify"
+        "steam"
+        "steam-unwrapped"
+        "antigravity-cli"
+        "nvidia-x11"
+        "nvidia-settings"
+        "nvidia-kernel-modules"
+      ];
+    permittedInsecurePackages = [
+      "pnpm-9.15.9"
+    ];
+  };
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
