@@ -57,4 +57,23 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
+
+  hardware.firmware = [
+    (pkgs.stdenvNoCC.mkDerivation {
+      name = "brcm-firmware";
+
+      src = ./.;
+
+      installPhase = ''
+        mkdir -p $out/lib/firmware/brcm
+
+        if [ -d "$src/wifi" ]; then
+          cp -r $src/wifi/* $out/lib/firmware/brcm/
+        fi
+        if [ -d "$src/bluetooth" ]; then
+          cp -r $src/bluetooth/* $out/lib/firmware/brcm/
+        fi
+      '';
+    })
+  ];
 }
