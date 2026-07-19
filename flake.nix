@@ -48,11 +48,13 @@
       "https://noctalia.cachix.org"
       "https://niri.cachix.org"
       "https://zen-browser.cachix.org"
+      "https://cache.soopy.moe"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "zen-browser.cachix.org-1:z/QLGrEkiBYF/7zoHX1Hpuv0B26QrmbVBSy9yDD2tSs="
+      "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo="
     ];
   };
   outputs =
@@ -86,6 +88,7 @@
         pc = mkNixosSystem "pc" [ ./hosts/pc/configuration.nix ];
         dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
+        mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
         vm = mkNixosSystem "vm" [ ./hosts/vm/configuration.nix ];
       };
     };

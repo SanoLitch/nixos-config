@@ -13,21 +13,16 @@
     ./easy-effects
     ./k9s
     ./ssh.nix
+    ./common.nix
   ];
 
   home.packages = with pkgs; [
-    btop
-    eza
     devbox
-    lazysql
-    lazydocker
     k9s
     wl-clipboard
     ddcutil
-    unar
     networkmanagerapplet
     libfaketime
-    jq
     wtype
   ];
 }
