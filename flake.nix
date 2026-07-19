@@ -85,7 +85,6 @@
     in
     {
       nixosConfigurations = {
-        pc = mkNixosSystem "pc" [ ./hosts/pc/configuration.nix ];
         dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
         mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
