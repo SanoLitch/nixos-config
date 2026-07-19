@@ -59,21 +59,14 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.firmware = [
-    (pkgs.stdenvNoCC.mkDerivation {
+    (pkgs.stdenvNoCC.mkDerivation (final: {
       name = "brcm-firmware";
-
-      src = ./.;
-
+      src = ./firmware-clean.tar.gz;
+      dontUnpack = true;
       installPhase = ''
         mkdir -p $out/lib/firmware/brcm
-
-        if [ -d "$src/wifi" ]; then
-          cp -r $src/wifi/* $out/lib/firmware/brcm/
-        fi
-        if [ -d "$src/bluetooth" ]; then
-          cp -r $src/bluetooth/* $out/lib/firmware/brcm/
-        fi
+        tar -xf ${final.src} -C $out/lib/firmware/brcm
       '';
-    })
+    }))
   ];
 }

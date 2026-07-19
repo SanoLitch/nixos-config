@@ -7,6 +7,7 @@
     ./podman.nix
     ./ssh.nix
     ./zsh.nix
+    ./networking.nix
   ];
 
   environment.variables = {

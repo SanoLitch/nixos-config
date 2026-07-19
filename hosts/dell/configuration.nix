@@ -29,7 +29,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../modules/system # Your custom system modules
-    ../../modules/system/default.mini-pc.nix # Your custom system modules
+    ../../modules/system/default.dell.nix # Your custom system modules
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware
