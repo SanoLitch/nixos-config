@@ -28,6 +28,7 @@
     "i2c-dev"
   ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4671a02b-dc3a-4528-b6d3-f666e89a7880";

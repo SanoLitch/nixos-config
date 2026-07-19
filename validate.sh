@@ -5,6 +5,8 @@ cp -R .config config
 git add config
 trap 'echo "Cleaning up git index..."; git reset config > /dev/null 2>&1; rm -rf config' EXIT
 
-echo "rebuilding system for vm"
+hostname=${1:-mini-pc} # Use the first argument as hostname, default to 'pc' if not provided
 
-sudo nixos-rebuild build-vm --flake .#vm
+sudo echo "rebuilding system for $hostname"
+
+nix flake check

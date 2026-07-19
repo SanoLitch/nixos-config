@@ -6,8 +6,6 @@
   ...
 }:
 {
-  formatter.x86_64-linux = pkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-
   imports = [
     ./hardware-configuration.nix # Auto-generated hardware config
     ./substituter.nix

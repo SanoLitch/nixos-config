@@ -23,6 +23,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e786a127-fd2b-467d-8a1d-ea2d7f7138b5";

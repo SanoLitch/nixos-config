@@ -58,7 +58,7 @@
     ];
   };
   outputs =
-    { ... }@inputs:
+    inputs:
     let
       system = "x86_64-linux";
 
@@ -88,7 +88,6 @@
         dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
         mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
-        vm = mkNixosSystem "vm" [ ./hosts/vm/configuration.nix ];
       };
     };
 }
