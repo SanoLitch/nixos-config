@@ -17,10 +17,7 @@
 
     extraOptions = [
       "--network=host"
-      "--userns=keep-id"
       "--label=io.containers.autoupdate=registry"
-      "--security-opt=seccomp=unconfined"
-      "--security-opt=apparmor=unconfined"
     ];
 
     environment = {
@@ -39,20 +36,7 @@
   ];
 
   systemd.services.podman-syncthing = {
-    overrideStrategy = "asDropin";
-    serviceConfig = {
-      ProtectSystem = "no";
-      ProtectHome = "no";
-      PrivateDevices = "no";
-      ProtectControlGroups = "no";
-      ProtectKernelModules = "no";
-      ProtectKernelTunables = "no";
-      RestrictAddressFamilies = "";
-    };
     wants = [ "network-online.target" ];
-    after = [
-      "network-online.target"
-      "local-fs.target"
-    ];
+    after = [ "network-online.target" ];
   };
 }
