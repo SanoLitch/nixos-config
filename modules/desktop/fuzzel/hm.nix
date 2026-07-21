@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  fuzzel-bluetooth = import ./fuzzel-bluetooth.nix { inherit pkgs; };
+  fuzzel-bluetooth = import ./bluetooth.nix { inherit pkgs; };
 in
 {
   home.packages = with pkgs; [

@@ -29,6 +29,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../modules/system # Your custom system modules
+    ../../modules/desktop
     ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 

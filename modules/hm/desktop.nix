@@ -2,7 +2,6 @@
 {
   imports = [
     ./apps
-    ./wm
     ./terminal
     ./utils
   ];

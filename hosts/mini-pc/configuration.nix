@@ -26,6 +26,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../modules/system # Your custom system modules
+    ../../modules/desktop
     ../../modules/system/audio.nix
     ../../modules/system/k380.nix
     ../../modules/system/vpn.nix
