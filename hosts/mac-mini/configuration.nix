@@ -52,8 +52,8 @@
     };
     hardware = {
       audio.enable = false;
-      graphics.enable = false;
       bluetooth.enable = true;
+      graphics.enable = false;
       keyd.enable = false;
       power.enable = false;
     };
