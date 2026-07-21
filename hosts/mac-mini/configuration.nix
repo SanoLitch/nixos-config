@@ -51,6 +51,7 @@
       vpn.enable = false;
     };
     hardware = {
+      audio.enable = false;
       graphics.enable = false;
       bluetooth.enable = true;
       keyd.enable = false;
