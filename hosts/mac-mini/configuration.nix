@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix # Auto-generated hardware config
     ./substituter.nix
-    ../../modules/system/server.nix # Your custom system modules
+    ../../modules/core
     ../../modules/services
     ../../modules/terminal
     ../../modules/cli
@@ -45,6 +45,8 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
+
+  host.core.vpn.enable = false;
 
   # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)
   system.stateVersion = "26.11";

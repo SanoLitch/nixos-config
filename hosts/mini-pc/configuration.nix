@@ -25,14 +25,12 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
 
-    ../../modules/system # Your custom system modules
+    ../../modules/core
+    ../../modules/hardware
     ../../modules/desktop
     ../../modules/terminal
     ../../modules/cli
     ../../modules/apps
-    ../../modules/system/audio.nix
-    ../../modules/system/k380.nix
-    ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware
@@ -91,6 +89,7 @@
     };
   };
 
+  host.hardware.k380.enable = true;
   hardware.graphics.enable = true;
 
   # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)

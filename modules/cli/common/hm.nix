@@ -1,4 +1,10 @@
 { pkgs, ... }: {
+  imports = [
+    ./git.nix
+    ./lazygit.nix
+    ./yazi.nix
+  ];
+
   home.packages = with pkgs; [
     btop
     eza
