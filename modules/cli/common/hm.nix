@@ -12,6 +12,7 @@
     lazydocker
     unar
     jq
+    devbox
   ];
 
   programs.bat = {

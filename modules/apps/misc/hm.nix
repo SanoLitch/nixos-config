@@ -6,6 +6,10 @@
     libreoffice
     spotify
     qbittorrent
+    wl-clipboard
+    ddcutil
+    networkmanagerapplet
+    wtype
   ];
 
   xdg = {
