@@ -66,12 +66,17 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
-  host.desktop.niri = {
-    enable = true;
-    outputs."eDP-1" = {
-      scale = 1.2;
+
+  host = {
+    desktop.niri = {
+      enable = true;
+      outputs."eDP-1" = {
+        scale = 1.2;
+      };
     };
+    apps.easyeffects.enable = false;
   };
+
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"
