@@ -65,7 +65,7 @@
       mkNixosSystem =
         hostname: modules:
         let
-          local_config = ./config;
+          local_config = ./.config;
           secrets = {
             user = builtins.fromJSON (builtins.readFile "${local_config}/common/user.json");
             git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
