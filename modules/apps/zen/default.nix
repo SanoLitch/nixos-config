@@ -1,4 +1,4 @@
-{ config, lib, secrets, ... }:
+{ config, lib, secrets, ... }@args:
 let cfg = config.host.apps.zen;
 in {
   options.host.apps.zen.enable = lib.mkEnableOption "Zen Browser";
