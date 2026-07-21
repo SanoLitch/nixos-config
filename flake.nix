@@ -48,22 +48,24 @@
       "https://noctalia.cachix.org"
       "https://niri.cachix.org"
       "https://zen-browser.cachix.org"
+      "https://cache.soopy.moe"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "zen-browser.cachix.org-1:z/QLGrEkiBYF/7zoHX1Hpuv0B26QrmbVBSy9yDD2tSs="
+      "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo="
     ];
   };
   outputs =
-    { ... }@inputs:
+    inputs:
     let
       system = "x86_64-linux";
 
       mkNixosSystem =
         hostname: modules:
         let
-          local_config = ./config;
+          local_config = ./.config;
           secrets = {
             user = builtins.fromJSON (builtins.readFile "${local_config}/common/user.json");
             git = builtins.fromJSON (builtins.readFile "${local_config}/common/git.json");
@@ -71,6 +73,8 @@
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
             sync = builtins.fromJSON (builtins.readFile "${local_config}/common/sync.json");
             mcp = builtins.fromJSON (builtins.readFile "${local_config}/common/mcp.json");
+            cloudflared = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/cloudflared.json");
+            forgejo = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/forgejo.json");
           };
         in
         inputs.nixpkgs.lib.nixosSystem {
@@ -83,10 +87,9 @@
     in
     {
       nixosConfigurations = {
-        pc = mkNixosSystem "pc" [ ./hosts/pc/configuration.nix ];
         dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
-        vm = mkNixosSystem "vm" [ ./hosts/vm/configuration.nix ];
+        mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
       };
     };
 }
