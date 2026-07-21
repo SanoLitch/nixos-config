@@ -13,6 +13,8 @@
     cmd = [
       "tunnel"
       "--no-autoupdate"
+      "--edge-ip-version"
+      "4"
       "run"
     ];
   };
