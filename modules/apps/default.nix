@@ -11,6 +11,7 @@
     ./nixvim
     ./clash-verge
     ./zoom
+    ./misc
   ];
 
   host.apps.antigravity.enable = lib.mkDefault true;
@@ -23,4 +24,5 @@
   host.apps.nixvim.enable = lib.mkDefault true;
   host.apps.clash-verge.enable = lib.mkDefault true;
   host.apps.zoom.enable = lib.mkDefault true;
+  host.apps.misc.enable = lib.mkDefault true;
 }
