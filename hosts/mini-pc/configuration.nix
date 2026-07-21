@@ -26,7 +26,9 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../modules/system # Your custom system modules
-    ../../modules/system/default.mini-pc.nix # Your custom system modules
+    ../../modules/system/audio.nix
+    ../../modules/system/k380.nix
+    ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware
@@ -59,8 +61,19 @@
       { ... }:
       {
         imports = [
-          ../../modules/hm/default.mini-pc.nix
+          ../../modules/hm/desktop.nix
         ];
+
+        programs.niri.settings = {
+          outputs."DP-1" = {
+            mode = {
+              width = 3440;
+              height = 1440;
+              refresh = 144.0;
+            };
+            scale = 1.6;
+          };
+        };
       };
   };
 

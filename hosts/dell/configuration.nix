@@ -29,7 +29,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../modules/system # Your custom system modules
-    ../../modules/system/default.dell.nix # Your custom system modules
+    ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 
     # Hardware Configuration - Uncomment lines that match your hardware
@@ -62,8 +62,19 @@
       { ... }:
       {
         imports = [
-          ../../modules/hm/default.dell.nix
+          ../../modules/hm/desktop.nix
         ];
+
+        programs.niri.settings = {
+          outputs."eDP-1" = {
+            # mode = {
+            #   width = 1920;
+            #   height = 1200;
+            #   refresh = 60.0;
+            # };
+            scale = 1.2;
+          };
+        };
       };
   };
 

@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix # Auto-generated hardware config
     ./substituter.nix
-    ../../modules/system/default.mac-mini.nix # Your custom system modules
+    ../../modules/system/server.nix # Your custom system modules
     ../../modules/services
 
     inputs.nixos-hardware.nixosModules.apple-t2
@@ -29,7 +29,7 @@
       { ... }:
       {
         imports = [
-          ../../modules/hm/default.mac-mini.nix
+          ../../modules/hm/cli-only.nix
         ];
       };
   };
