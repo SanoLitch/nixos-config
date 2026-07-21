@@ -5,8 +5,6 @@
     ./nix.nix
     ./locale.nix
     ./podman.nix
-    ./ssh.nix
-    ./zsh.nix
     ./networking.nix
   ];
 

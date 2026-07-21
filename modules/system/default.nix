@@ -8,10 +8,8 @@
     ./networking.nix
     ./keyd.nix
     ./podman.nix
-    ./ssh.nix
     ./steam.nix
     ./clash-verge.nix
-    ./zsh.nix
   ];
 
   environment.variables = {

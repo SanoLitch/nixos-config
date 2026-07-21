@@ -12,7 +12,6 @@
     ./yazi.nix
     ./easy-effects
     ./k9s
-    ./ssh.nix
     ./common.nix
   ];
 

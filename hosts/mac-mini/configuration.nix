@@ -11,6 +11,8 @@
     ./substituter.nix
     ../../modules/system/server.nix # Your custom system modules
     ../../modules/services
+    ../../modules/terminal
+    ../../modules/cli
 
     inputs.nixos-hardware.nixosModules.apple-t2
     inputs.home-manager.nixosModules.home-manager

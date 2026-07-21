@@ -27,6 +27,8 @@
 
     ../../modules/system # Your custom system modules
     ../../modules/desktop
+    ../../modules/terminal
+    ../../modules/cli
     ../../modules/system/audio.nix
     ../../modules/system/k380.nix
     ../../modules/system/vpn.nix

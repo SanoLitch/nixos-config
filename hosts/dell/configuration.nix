@@ -30,6 +30,8 @@
 
     ../../modules/system # Your custom system modules
     ../../modules/desktop
+    ../../modules/terminal
+    ../../modules/cli
     ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 
