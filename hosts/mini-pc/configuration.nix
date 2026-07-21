@@ -63,17 +63,6 @@
         imports = [
           ../../modules/hm/desktop.nix
         ];
-
-        programs.niri.settings = {
-          outputs."DP-1" = {
-            mode = {
-              width = 3440;
-              height = 1440;
-              refresh = 144.0;
-            };
-            scale = 1.6;
-          };
-        };
       };
   };
 
@@ -88,6 +77,17 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
+  host.desktop.niri = {
+    enable = true;
+    outputs."DP-1" = {
+      mode = {
+        width = 3440;
+        height = 1440;
+        refresh = 144.0;
+      };
+      scale = 1.6;
+    };
+  };
 
   hardware.graphics.enable = true;
 

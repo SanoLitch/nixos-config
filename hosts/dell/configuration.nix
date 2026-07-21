@@ -64,17 +64,6 @@
         imports = [
           ../../modules/hm/desktop.nix
         ];
-
-        programs.niri.settings = {
-          outputs."eDP-1" = {
-            # mode = {
-            #   width = 1920;
-            #   height = 1200;
-            #   refresh = 60.0;
-            # };
-            scale = 1.2;
-          };
-        };
       };
   };
 
@@ -89,6 +78,17 @@
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
+  host.desktop.niri = {
+    enable = true;
+    outputs."eDP-1" = {
+      # mode = {
+      #   width = 1920;
+      #   height = 1200;
+      #   refresh = 60.0;
+      # };
+      scale = 1.2;
+    };
+  };
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"

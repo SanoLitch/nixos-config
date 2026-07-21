@@ -12,7 +12,7 @@
     ./steam.nix
     ./clash-verge.nix
     ./zsh.nix
-    ./niri.nix
+    ../desktop/niri
     ./greetd.nix
     ./clipboard.nix
     ./polkit.nix
