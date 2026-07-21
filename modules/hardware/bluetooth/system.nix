@@ -1,11 +1,6 @@
 { pkgs, ... }:
 {
   hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -24,9 +19,4 @@
     ${pkgs.coreutils}/bin/sleep 2
     ${pkgs.bluez}/bin/bluetoothctl power on
   '';
-
-  services = {
-    power-profiles-daemon.enable = true;
-    upower.enable = true;
-  };
 }

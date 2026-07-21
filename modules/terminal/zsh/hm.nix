@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  logos = ./logos;
-in
 {
   home.packages = with pkgs; [
     pay-respects
@@ -20,7 +17,6 @@ in
 
     initContent = ''
       eval "$(pay-respects zsh)"
-      fastfetch --kitty-direct "$(ls ${logos}/*.png | shuf -n 1)"
     '';
 
     shellAliases = {

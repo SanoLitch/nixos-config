@@ -122,4 +122,8 @@
       ];
     };
   };
+
+  programs.zsh.initContent = ''
+    fastfetch --kitty-direct "$(ls ${./logos}/*.png | shuf -n 1)"
+  '';
 }
