@@ -76,6 +76,7 @@
     };
     terminal = {
       fastfetch.enable = false;
+      kitty.enable = false;
     };
   };
 
