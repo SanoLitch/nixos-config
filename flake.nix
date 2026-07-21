@@ -73,6 +73,8 @@
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
             sync = builtins.fromJSON (builtins.readFile "${local_config}/common/sync.json");
             mcp = builtins.fromJSON (builtins.readFile "${local_config}/common/mcp.json");
+            cloudflared = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/cloudflared.json");
+            forgejo = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/forgejo.json");
           };
         in
         inputs.nixpkgs.lib.nixosSystem {

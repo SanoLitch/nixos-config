@@ -1,4 +1,4 @@
-{ ... }: {
+{ secrets, ... }: {
   virtualisation.podman.enable = true;
 
   systemd.tmpfiles.rules = [
@@ -22,9 +22,9 @@
     environment = {
       USER_UID = "1000";
       USER_GID = "1000";
-      FORGEJO__server__DOMAIN = "git.sl-tech.ru.net";
-      FORGEJO__server__ROOT_URL = "https://git.sl-tech.ru.net/";
-      FORGEJO__server__SSH_DOMAIN = "ssh-git.sl-tech.ru.net";
+      FORGEJO__server__DOMAIN = secrets.forgejo.domain;
+      FORGEJO__server__ROOT_URL = secrets.forgejo.rootUrl;
+      FORGEJO__server__SSH_DOMAIN = secrets.forgejo.sshDomain;
       FORGEJO__server__SSH_PORT = "22";
     };
   };
