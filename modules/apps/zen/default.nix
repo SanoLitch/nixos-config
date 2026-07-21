@@ -1,7 +1,7 @@
 { config, lib, secrets, ... }:
-let cfg = config.host.apps.easyeffects;
+let cfg = config.host.apps.zen;
 in {
-  options.host.apps.easyeffects.enable = lib.mkEnableOption "EasyEffects Audio Equalizer";
+  options.host.apps.zen.enable = lib.mkEnableOption "Zen Browser";
   config = lib.mkIf cfg.enable {
     home-manager.users."${secrets.user.username}" = {
       imports = [ ./hm.nix ];

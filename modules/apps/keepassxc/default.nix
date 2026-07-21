@@ -1,7 +1,7 @@
 { config, lib, secrets, ... }:
-let cfg = config.host.apps.easyeffects;
+let cfg = config.host.apps.keepassxc;
 in {
-  options.host.apps.easyeffects.enable = lib.mkEnableOption "EasyEffects Audio Equalizer";
+  options.host.apps.keepassxc.enable = lib.mkEnableOption "KeepassXC";
   config = lib.mkIf cfg.enable {
     home-manager.users."${secrets.user.username}" = {
       imports = [ ./hm.nix ];

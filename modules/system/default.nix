@@ -8,7 +8,6 @@
     ./networking.nix
     ./keyd.nix
     ./podman.nix
-    ./steam.nix
     ./clash-verge.nix
   ];
 

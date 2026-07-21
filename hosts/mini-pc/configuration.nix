@@ -29,6 +29,7 @@
     ../../modules/desktop
     ../../modules/terminal
     ../../modules/cli
+    ../../modules/apps
     ../../modules/system/audio.nix
     ../../modules/system/k380.nix
     ../../modules/system/vpn.nix
@@ -63,9 +64,7 @@
     users."${secrets.user.username}" =
       { ... }:
       {
-        imports = [
-          ../../modules/hm/desktop.nix
-        ];
+        home.stateVersion = "25.05";
       };
   };
 

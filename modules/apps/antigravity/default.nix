@@ -1,7 +1,7 @@
 { config, lib, secrets, ... }:
-let cfg = config.host.apps.easyeffects;
+let cfg = config.host.apps.antigravity;
 in {
-  options.host.apps.easyeffects.enable = lib.mkEnableOption "EasyEffects Audio Equalizer";
+  options.host.apps.antigravity.enable = lib.mkEnableOption "Antigravity CLI";
   config = lib.mkIf cfg.enable {
     home-manager.users."${secrets.user.username}" = {
       imports = [ ./hm.nix ];

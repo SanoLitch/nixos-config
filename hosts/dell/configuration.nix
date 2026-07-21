@@ -32,6 +32,7 @@
     ../../modules/desktop
     ../../modules/terminal
     ../../modules/cli
+    ../../modules/apps
     ../../modules/system/vpn.nix
     ./hardware-configuration.nix # Auto-generated hardware config
 
@@ -64,9 +65,7 @@
     users."${secrets.user.username}" =
       { ... }:
       {
-        imports = [
-          ../../modules/hm/desktop.nix
-        ];
+        home.stateVersion = "25.05";
       };
   };
 

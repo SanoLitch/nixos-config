@@ -30,9 +30,7 @@
     users."${secrets.user.username}" =
       { ... }:
       {
-        imports = [
-          ../../modules/hm/cli-only.nix
-        ];
+        home.stateVersion = "26.11";
       };
   };
 
