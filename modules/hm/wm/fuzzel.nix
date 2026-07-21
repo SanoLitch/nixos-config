@@ -13,7 +13,7 @@ in
     dmenu_command = fuzzel --dmenu
 
     [database]
-    database_1 = ~/Documents/Secrets/pass_db.kdbx
+    database_1 = ~/Sync/Secrets/pass_db.kdbx
     type_library = wtype
     terminal = kitty
     editor = nvim
