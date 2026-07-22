@@ -7,45 +7,78 @@
 }:
 {
   imports = [
-    ./hardware-configuration.nix # Auto-generated hardware config
+    inputs.home-manager.nixosModules.home-manager
+
+    ./hardware-configuration.nix
     ./substituter.nix
-    ../../modules/system/default.mac-mini.nix # Your custom system modules
+    ../../modules/apps
+    ../../modules/core
+    ../../modules/hardware
     ../../modules/services
+    ../../modules/terminal
+    ../../modules/cli
 
     inputs.nixos-hardware.nixosModules.apple-t2
-    inputs.home-manager.nixosModules.home-manager
   ];
 
-  # Home Manager Configuration - manages user-specific configurations (dotfiles, themes, etc.)
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
 
     extraSpecialArgs = { inherit inputs secrets; };
-    # User Configuration - REQUIRED: Change "hydenix" to your actual username
-    # This must match the username you define in users.users below
+
     users."${secrets.user.username}" =
       { ... }:
       {
-        imports = [
-          ../../modules/hm/default.mac-mini.nix
-        ];
+        home.stateVersion = "26.11";
       };
   };
 
-  # User Account Setup - REQUIRED: Change "hydenix" to your desired username (must match above)
   users.users.${secrets.user.username} = {
     isNormalUser = true;
-    initialPassword = secrets.user.password; # SECURITY: Change this password after first login with `passwd`
+    initialPassword = secrets.user.password;
     extraGroups = secrets.user.groups;
-    shell = pkgs.zsh; # Default shell (options: pkgs.bash, pkgs.zsh, pkgs.fish)
+    shell = pkgs.zsh;
   };
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
   networking.hostName = hostname;
 
-  # System Version - Don't change unless you know what you're doing (helps with system upgrades and compatibility)
+  host = {
+    core = {
+      vpn.enable = false;
+    };
+    hardware = {
+      audio.enable = false;
+      bluetooth.enable = true;
+      graphics.enable = false;
+      keyd.enable = false;
+      power.enable = false;
+    };
+    cli = {
+      calendar.enable = false;
+      email.enable = false;
+    };
+    apps = {
+      antigravity.enable = false;
+      keepassxc.enable = true;
+      mpv.enable = false;
+      syncthing.enable = false;
+      zen.enable = false;
+      steam.enable = false;
+      easyeffects.enable = false;
+      nixvim.enable = true;
+      clash-verge.enable = false;
+      zoom.enable = false;
+      misc.enable = false;
+    };
+    terminal = {
+      fastfetch.enable = false;
+      kitty.enable = false;
+    };
+  };
+
   system.stateVersion = "26.11";
 }

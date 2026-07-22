@@ -7,11 +7,14 @@
     environment = {
       TUNNEL_TOKEN = secrets.cloudflared.token;
       TUNNEL_TRANSPORT_PROTOCOL = "http2";
+      TUNNEL_EDGE_IP_VERSION = "4";
     };
 
     cmd = [
       "tunnel"
       "--no-autoupdate"
+      "--edge-ip-version"
+      "4"
       "run"
     ];
   };
