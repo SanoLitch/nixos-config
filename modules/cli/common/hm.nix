@@ -13,6 +13,7 @@
     unar
     jq
     devbox
+    gitui
   ];
 
   programs.bat = {

@@ -10,6 +10,7 @@
     ddcutil
     networkmanagerapplet
     wtype
+    claude-code
   ];
 
   xdg = {

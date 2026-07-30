@@ -19,6 +19,7 @@
         "nvidia-x11"
         "nvidia-settings"
         "nvidia-kernel-modules"
+        "claude-code"
       ];
     permittedInsecurePackages = [
       "pnpm-9.15.9"

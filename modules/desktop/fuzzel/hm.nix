@@ -4,7 +4,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    keepmenu
+    (keepmenu.override { python3Packages = python312Packages; })
     fuzzel-bluetooth
   ];
 

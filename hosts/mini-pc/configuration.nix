@@ -16,6 +16,7 @@
         "steam"
         "steam-unwrapped"
         "antigravity-cli"
+        "claude-code"
       ];
     permittedInsecurePackages = [
       "pnpm-9.15.9"

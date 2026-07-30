@@ -2,8 +2,8 @@
   description = "Personal NixOS configuration Niri + Noctalia Shell";
 
   inputs = {
-    # Your nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-agy.url = "github:nixos/nixpkgs/b5d95a3fd3b1b97a2236fe1a19b0a82647af2313";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia/legacy-v4";
@@ -15,7 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hardware Configuration's, used in ./configuration.nix. Feel free to remove if unused
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
     home-manager = {
@@ -25,16 +24,13 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
-        # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
         nixpkgs.follows = "nixpkgs";
-        # home-manager.follows = "home-manager";
       };
     };
 
