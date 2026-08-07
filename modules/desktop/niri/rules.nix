@@ -36,6 +36,26 @@
         open-focused = true;
       }
       {
+        matches = [
+          { app-id = "r#\"^Zoom.*$\"# "; }
+        ];
+        open-floating = true;
+      }
+      {
+        matches = [
+          {
+            app-id = "r#\"^Zoom.*$\"# ";
+            title = "r#\"^(menu window)$\"#";
+          }
+        ];
+        default-column-width = {
+          fixed = 300;
+        };
+        default-window-height = {
+          fixed = 201;
+        };
+      }
+      {
         draw-border-with-background = false;
         geometry-corner-radius = {
           top-left = 2.0;
