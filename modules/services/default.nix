@@ -6,5 +6,6 @@
     ./jackett.nix
     ./syncthing.nix
     ./torrserver.nix
+    ./flaresolver.nix
   ];
 }
