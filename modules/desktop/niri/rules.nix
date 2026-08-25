@@ -35,26 +35,39 @@
         };
         open-focused = true;
       }
+
       {
         matches = [
-          { app-id = "r#\"^Zoom.*$\"# "; }
+          { app-id = "zoom"; }
+        ];
+        excludes = [
+          {
+            app-id = "zoom";
+            title = "Meeting";
+          }
         ];
         open-floating = true;
+        open-focused = false;
+        open-fullscreen = false;
+        open-maximized = false;
       }
       {
         matches = [
           {
-            app-id = "r#\"^Zoom.*$\"# ";
-            title = "r#\"^(menu window)$\"#";
+            app-id = "zoom";
+            title = "annotate_toolbar";
           }
         ];
-        default-column-width = {
-          fixed = 300;
-        };
-        default-window-height = {
-          fixed = 201;
+        max-width = 64;
+        max-height = 64;
+        border.enable = false;
+        default-floating-position = {
+          relative-to = "bottom-left";
+          x = 24;
+          y = 72;
         };
       }
+
       {
         draw-border-with-background = false;
         geometry-corner-radius = {
