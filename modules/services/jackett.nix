@@ -79,7 +79,7 @@
 
       if [ -f "$CONFIG_FILE" ]; then
         API_KEY=$(${pkgs.jq}/bin/jq -r '.APIKey' "$CONFIG_FILE")
-        ${pkgs.curl}/bin/curl -s -f "http://127.0.0.1:9117/api/v2.0/indexers/status:all/test?apikey=''${API_KEY}" > /dev/null
+        ${pkgs.curl}/bin/curl -s -X POST "http://127.0.0.1:9117/api/v2.0/indexers/status:all/test?apikey=''${API_KEY}" > /dev/null
       fi
     '';
   };
