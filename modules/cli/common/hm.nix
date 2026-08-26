@@ -13,6 +13,8 @@
     unar
     jq
     devbox
+    devenv
+    direnv
     gitui
   ];
 

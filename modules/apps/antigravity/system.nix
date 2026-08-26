@@ -16,7 +16,7 @@
             final.makeWrapper
           ];
           postInstall = (oldAttrs.postInstall or "") + ''
-            python3 ${./patch_antigravity.py} $out/bin/agy
+            python3 ${./patch_antigravity.py} $out/bin/agy --no-backup
           '';
         });
     })

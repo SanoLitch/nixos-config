@@ -16,13 +16,13 @@ SEARCH_PATHS = [
 ]
 
 def find_binary():
-    for path in SEARCH_PATHS:
-        if os.path.isfile(path) and os.access(path, os.X_OK):
-            return path
-    
     agy_path = shutil.which("agy")
     if agy_path:
         return agy_path
+
+    for path in SEARCH_PATHS:
+        if os.path.isfile(path) and os.access(path, os.X_OK):
+            return path
         
     return None
 
@@ -66,9 +66,18 @@ def scan_binary_for_pattern(data):
                             if data[patch_offset:patch_offset+1] == b'\xe9' and data[patch_offset+5:patch_offset+6] == b'\x90':
                                 break
                                 
-                            # Calculate relative jump to success block (0x84400f6 / offset 0x220 relative)
-                            # Target success epilogue return (idx + 3 + 6 - 0x226 = 0x84400f6)
+                            # Calculate relative jump to success block
                             success_rel32 = 0x220
+                            chunk_after = data[patch_offset+6:patch_offset+6+64]
+                            for i in range(len(chunk_after) - 6):
+                                if chunk_after[i:i+2] in (b'\x0f\x84', b'\x0f\x85'):
+                                    jmp_rel = struct.unpack('<i', chunk_after[i+2:i+6])[0]
+                                    inst_addr = patch_offset + 6 + i
+                                    dest = inst_addr + 6 + jmp_rel
+                                    if dest > patch_offset + 0x100:
+                                        success_rel32 = dest - (patch_offset + 5)
+                                        break
+
                             new_inst_bytes = b'\xe9' + struct.pack('<i', success_rel32) + b'\x90'
                             patches.append((patch_offset, new_inst_bytes))
                             break
@@ -104,7 +113,7 @@ def scan_binary_for_pattern(data):
     already_patched = len(patches) == 0 and str_off != -1
     return patches, already_patched
 
-def patch_binary(filepath, output_path=None):
+def patch_binary(filepath, output_path=None, backup=True):
     real_path = os.path.realpath(filepath)
     is_read_only = not os.access(real_path, os.W_OK)
 
@@ -117,15 +126,21 @@ def patch_binary(filepath, output_path=None):
     else:
         target_filepath = real_path
 
-    if target_filepath != real_path or is_read_only:
+    if target_filepath != real_path:
         print(f"[*] Copying binary to: {target_filepath}")
         shutil.copy2(real_path, target_filepath)
         st = os.stat(target_filepath)
         os.chmod(target_filepath, st.st_mode | stat.S_IWUSR | stat.S_IXUSR)
+    elif is_read_only:
+        try:
+            st = os.stat(target_filepath)
+            os.chmod(target_filepath, st.st_mode | stat.S_IWUSR | stat.S_IXUSR)
+        except OSError:
+            pass
 
     backup_path = target_filepath + ".bak"
     scan_filepath = target_filepath
-    if os.path.exists(backup_path):
+    if backup and os.path.exists(backup_path):
         print(f"[*] Scanning backup file: {backup_path}")
         scan_filepath = backup_path
 
@@ -143,8 +158,8 @@ def patch_binary(filepath, output_path=None):
         print("❌ Error: Eligibility check pattern not found in binary.")
         return False
 
-    # Create backup if in-place patching
-    if target_filepath == real_path and not os.path.exists(backup_path):
+    # Create backup if in-place patching and backup is enabled
+    if backup and target_filepath == real_path and not os.path.exists(backup_path):
         print(f"[*] Creating backup: {backup_path}")
         shutil.copy2(target_filepath, backup_path)
 
@@ -165,6 +180,7 @@ def main():
     parser = argparse.ArgumentParser(description="Antigravity CLI Eligibility Patcher for Linux (x86_64)")
     parser.add_argument("binary", nargs="?", help="Path to agy binary (optional)")
     parser.add_argument("-o", "--output", help="Output path for patched binary")
+    parser.add_argument("--no-backup", action="store_true", help="Do not create a .bak backup file")
     args = parser.parse_args()
 
     target = args.binary or find_binary()
@@ -179,7 +195,7 @@ def main():
         print(f"❌ Error: File not found: {target}")
         sys.exit(1)
 
-    success = patch_binary(target, args.output)
+    success = patch_binary(target, args.output, backup=not args.no_backup)
     if not success:
         sys.exit(1)
 

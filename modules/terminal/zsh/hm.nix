@@ -16,6 +16,7 @@
     syntaxHighlighting.enable = true;
 
     initContent = ''
+      eval "$(direnv hook zsh)"
       eval "$(pay-respects zsh)"
     '';
 
