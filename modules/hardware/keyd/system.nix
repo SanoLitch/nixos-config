@@ -67,6 +67,18 @@ in
           commonSettings
         ];
       };
+      sunshine = {
+        ids = [ "beef:dead:fe1a1126" ];
+        settings = lib.mkMerge [
+          {
+            main = {
+              leftmeta = "layer(meta_mac)";
+              leftalt = "leftmeta";
+            };
+          }
+          commonSettings
+        ];
+      };
     };
   };
 

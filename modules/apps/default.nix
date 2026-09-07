@@ -12,6 +12,7 @@
     ./clash-verge
     ./zoom
     ./misc
+    ./sunshine
   ];
 
   host.apps.antigravity.enable = lib.mkDefault true;
@@ -25,4 +26,5 @@
   host.apps.clash-verge.enable = lib.mkDefault true;
   host.apps.zoom.enable = lib.mkDefault true;
   host.apps.misc.enable = lib.mkDefault true;
+  host.apps.sunshine.enable = lib.mkDefault false;
 }
