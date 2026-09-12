@@ -7,5 +7,6 @@
     ./rust.nix
     ./shell.nix
     ./typescript.nix
+    ./obsidian.nix
   ];
 }
