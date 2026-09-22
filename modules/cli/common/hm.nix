@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     btop
     eza
-    lazysql
+    harlequin
     lazydocker
     unar
     jq
