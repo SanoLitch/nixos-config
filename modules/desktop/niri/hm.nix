@@ -41,7 +41,7 @@
         }
         {
           command = [
-            "noctalia-shell"
+            "noctalia"
           ];
         }
         {
@@ -55,12 +55,6 @@
             "-w"
             "hide"
             "--restart-on-wake-up"
-          ];
-        }
-        {
-          command = [
-            "keepassxc"
-            "--minimized"
           ];
         }
       ];

@@ -16,7 +16,7 @@
         scroll-factor = 0.5;
       };
 
-      focus-follows-mouse.enable = false;
+      focus-follows-mouse.enable = true;
     };
 
     gestures.hot-corners = {
@@ -33,11 +33,10 @@
       ];
       "Mod+Shift+B".action.spawn = "fuzzel-bluetooth";
       "Mod+E".action.spawn = [
-        "noctalia-shell"
-        "ipc"
-        "call"
-        "sessionMenu"
-        "toggle"
+        "noctalia"
+        "msg"
+        "panel-toggle"
+        "session"
       ];
 
       # Window management

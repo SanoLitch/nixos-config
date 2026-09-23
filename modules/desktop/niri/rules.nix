@@ -17,6 +17,14 @@
     window-rules = [
       {
         matches = [
+          { app-id = "dev.noctalia.Noctalia"; }
+        ];
+        open-floating = true;
+        default-column-width.fixed = 800;
+        default-window-height.fixed = 600;
+      }
+      {
+        matches = [
           { app-id = "nm-openconnect-auth-dialog"; }
         ];
         open-floating = true;

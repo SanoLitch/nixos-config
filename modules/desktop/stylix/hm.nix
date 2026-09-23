@@ -11,6 +11,10 @@
     inputs.niri.homeModules.stylix
   ];
 
+  home.packages = with pkgs; [
+    nerd-fonts.caskaydia-cove
+  ];
+
   gtk.gtk4.theme = lib.mkForce config.gtk.theme;
 
   stylix = {

@@ -6,7 +6,7 @@
     nixpkgs-agy.url = "github:nixos/nixpkgs/c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0";
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia/legacy-v4";
+      url = "github:noctalia-dev/noctalia/cachix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -1,64 +1,32 @@
-{ lib, ... }:
+{ ... }:
 {
-  programs.noctalia-shell.settings.bar = {
-    density = "default";
-    position = "top";
-    barType = "simple";
-    showCapsule = true;
-    capsuleOpacity = lib.mkForce 0.35;
-    useSeparateOpacity = true;
-    backgroundOpacity = lib.mkForce 0.35;
-    widgets = {
-      left = [
-        {
-          id = "SystemMonitor";
-          compactMode = false;
-        }
-        {
-          id = "Clock";
-          formatHorizontal = "HH:mm, dd MMM yy";
-          formatVertical = "HH mm";
-          useMonospacedFont = true;
-          usePrimaryColor = false;
-        }
-        {
-          id = "KeepAwake";
-        }
-      ];
-      center = [
-      ];
-      right = [
-        {
-          id = "MediaMini";
-          showVisualizer = true;
-          visualizerType = "linear";
-          maxWidth = 545;
-        }
-        {
-          id = "KeyboardLayout";
-          showIcon = false;
-        }
-        {
-          id = "Tray";
-          drawerEnabled = false;
-          colorizeIcons = true;
-        }
-        {
-          id = "Battery";
-        }
-        {
-          id = "NotificationHistory";
-        }
-        {
-          id = "Volume";
-        }
-        {
-          id = "ControlCenter";
-          useDistroLogo = true;
-          icon = "noctalia";
-          enableColorization = true;
-        }
-      ];
-    };
+  programs.noctalia.settings.bar.main = {
+    background_opacity = 0.5;
+    capsule = true;
+    capsule_opacity = 0.2;
+    capsule_thickness = 0.85;
+    capsule_radius = 4;
+
+    start = [
+      "cpu"
+      "temp"
+      "ram"
+      "clock"
+      "caffeine"
+      "workspaces"
+    ];
+
+    center = [ "privacy" ];
+
+    end = [
+      "keyboard_layout"
+      "network"
+      "bluetooth"
+      "volume"
+      "tray"
+      "notifications"
+      "clipboard"
+      "settings"
+    ];
   };
 }
