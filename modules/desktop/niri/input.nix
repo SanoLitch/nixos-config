@@ -16,7 +16,10 @@
         scroll-factor = 0.5;
       };
 
-      focus-follows-mouse.enable = true;
+      focus-follows-mouse = {
+        enable = true;
+        max-scroll-amount = "0%";
+      };
     };
 
     gestures.hot-corners = {

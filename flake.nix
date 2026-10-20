@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-agy.url = "github:nixos/nixpkgs/c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0";
+    nixpkgs-agy.url = "github:nixos/nixpkgs/09063bd1f2b36fd9fd793c36dfade7bd40a93dfc";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
@@ -24,18 +24,25 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    helium-flake = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
       url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    superfile = {
+      url = "github:yorukot/superfile";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

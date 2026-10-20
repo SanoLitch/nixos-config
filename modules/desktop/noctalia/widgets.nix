@@ -1,5 +1,4 @@
 { ... }: {
-
   programs.noctalia.settings.widget = {
     cpu = {
       type = "sysmon";
@@ -20,10 +19,11 @@
     };
 
     workspaces = {
+      style = "regular";
       show_labels = false;
-      style = "focus_hint";
       hide_when_empty = true;
       focused_output_only = true;
+      pill_scale = 0.5;
     };
 
     privacy = {
@@ -43,10 +43,6 @@
       drawer = true;
       pinned = [ "steam" ];
       hide_passive = false;
-    };
-
-    control-center = {
-      glyph = "U+F313";
     };
   };
 }

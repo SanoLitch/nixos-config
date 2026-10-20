@@ -1,9 +1,20 @@
 { pkgs, ... }:
-
 {
-  # Включаем официальную поддержку Logitech через Solaar.
-  # Это автоматически добавит нужные udev-правила, модуль hid_logitech_hidpp
-  # и установит GUI/CLI утилиту solaar.
   hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  programs.solaar.enable = true;
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      solaar = prev.solaar.overrideAttrs (oldAttrs: {
+        postPatch =
+          (oldAttrs.postPatch or "")
+          + ''
+            substituteInPlace lib/hidapi/udev_impl.py \
+              --replace-fail \
+                'filtered_result = filter_func(int(bid, 16), int(vid, 16), int(pid, 16), hidpp_short or centurion, hidpp_long or centurion)' \
+                'filtered_result = filter_func(int(bid, 16), int(vid, 16), int(pid, 16), (hidpp_short or centurion) if hidpp_short is not None else None, (hidpp_long or centurion) if hidpp_long is not None else None)'
+          '';
+      });
+    })
+  ];
 }

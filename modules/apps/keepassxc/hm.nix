@@ -28,7 +28,7 @@ let
       LockDatabaseScreenLock = false;
     };
     FdoSecrets = {
-      Enabled = true;
+      Enabled = false;
       ConfirmAccessItem = false;
       ConfirmDeleteItem = false;
       ShowNotification = false;
@@ -43,7 +43,7 @@ let
 in
 {
   # Disable gnome-keyring so KeePassXC can claim the Secret Service (FdoSecrets)
-  services.gnome-keyring.enable = lib.mkForce false;
+  # services.gnome-keyring.enable = lib.mkForce false;
 
   programs.keepassxc = {
     enable = true;

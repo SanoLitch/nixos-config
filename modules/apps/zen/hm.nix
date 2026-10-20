@@ -60,6 +60,10 @@ in
         Cryptomining = true;
         Fingerprinting = true;
       };
+      Preferences = {
+        "media.hardware-video-decoding.force-enabled" = true;
+        "security.sandbox.rdd.level" = 0;
+      };
     };
   };
 

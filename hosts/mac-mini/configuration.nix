@@ -72,6 +72,7 @@
       mpv.enable = false;
       syncthing.enable = false;
       zen.enable = false;
+      helium.enable = false;
       steam.enable = false;
       easyeffects.enable = false;
       nixvim.enable = true;

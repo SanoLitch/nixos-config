@@ -8,9 +8,7 @@
     capsule_radius = 4;
 
     start = [
-      "cpu"
-      "temp"
-      "ram"
+      "group:sysmon"
       "clock"
       "caffeine"
       "workspaces"
@@ -27,6 +25,22 @@
       "notifications"
       "clipboard"
       "settings"
+    ];
+
+    capsule_group = [
+      {
+        id = "sysmon";
+        members = [
+          "cpu"
+          "temp"
+          "ram"
+        ];
+        fill = "surface_variant";
+        padding = 6.0;
+        opacity = 0.2;
+        enabled = true;
+        accordion = false;
+      }
     ];
   };
 }

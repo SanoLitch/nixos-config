@@ -1,8 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     ./git.nix
     ./lazygit.nix
     ./yazi.nix
+    # ./superfile.nix
   ];
 
   home.packages = with pkgs; [
@@ -15,7 +16,7 @@
     devbox
     devenv
     direnv
-    gitui
+    inputs.superfile.packages.${system}.default
   ];
 
   programs.bat = {
