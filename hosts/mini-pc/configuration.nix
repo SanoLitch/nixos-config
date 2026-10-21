@@ -83,29 +83,19 @@
     };
     desktop.niri = {
       enable = true;
-      outputs = {
-        "DP-1" = {
-          mode = {
-            width = 3440;
-            height = 1440;
-            refresh = 144.0;
-          };
-          scale = 1.6;
-        };
-        "HDMI-A-1" = {
-          enable = false;
-          mode = {
-            width = 2732;
-            height = 2048;
-            refresh = 60.0;
-          };
-          scale = 2.0;
-          position = {
-            x = 3440;
-            y = 0;
-          };
-        };
-      };
+      extraConfig = ''
+        output "DP-1" {
+            scale 1.6
+            mode "3440x1440@144.0"
+        }
+
+        output "HDMI-A-1" {
+            off
+            scale 2.0
+            position x=3440 y=0
+            mode "2732x2048@60.0"
+        }
+      '';
     };
     hardware = {
       k380.enable = true;

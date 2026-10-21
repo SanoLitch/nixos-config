@@ -8,7 +8,6 @@
 {
   imports = [
     inputs.stylix.homeModules.stylix
-    inputs.niri.homeModules.stylix
   ];
 
   home.packages = with pkgs; [
@@ -24,7 +23,6 @@
     polarity = "dark";
 
     targets = {
-      niri.enable = true;
       kitty.variant256Colors = true;
       neovim.enable = false;
       nixvim.enable = false;

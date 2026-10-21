@@ -71,9 +71,11 @@
   host = {
     desktop.niri = {
       enable = true;
-      outputs."eDP-1" = {
-        scale = 1.2;
-      };
+      extraConfig = ''
+        output "eDP-1" {
+            scale 1.2
+        }
+      '';
     };
     apps.easyeffects.enable = false;
   };

@@ -13,5 +13,8 @@ in
       enabled = true;
       default.path = defaultWallpaper;
     };
+    backdrop = {
+      enabled = true;
+    };
   };
 }
