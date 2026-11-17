@@ -41,9 +41,12 @@ in
       MEMPALACE_MCP_IDLE_HOURS = "0";
       # Multilingual (ru/en). Changing it later needs `mempalace repair rebuild-index`.
       MEMPALACE_EMBEDDING_MODEL = "embeddinggemma";
+      # ONNX grabs every core by default and cooks the mac mini during backfills.
+      MEMPALACE_EMBEDDING_THREADS = "2";
     };
 
     extraOptions = [
+      "--cpus=2"
       "--user=1000:100"
       "--publish=${toString port}:${toString port}"
     ];
@@ -64,10 +67,21 @@ in
     requires = [ "podman-mempalace.service" ];
     serviceConfig.Type = "oneshot";
     path = [ pkgs.podman ];
+    # Layout: <host>/<agent>/<project-slug>/..., where the slug is the project path
+    # with "/" -> "-" (Claude's ~/.claude/projects convention, mirrored by the
+    # Antigravity exporter). One wing per project, shared by all hosts and agents.
     script = ''
       shopt -s nullglob
-      for dir in ${inboxDir}/*/*; do
-        podman exec mempalace mempalace mine "/inbox/''${dir#${inboxDir}/}" --mode convos || true
+      for dir in ${inboxDir}/*/*/*/; do
+        dir=''${dir%/}
+        wing=''${dir##*/}
+        wing=''${wing#-home-${secrets.user.username}}
+        wing=''${wing#-}
+        wing=''${wing#Projects-}
+        wing=''${wing:-home}
+        wing=''${wing// /_}
+        podman exec mempalace mempalace mine "/inbox/''${dir#${inboxDir}/}" \
+          --mode convos --wing "$wing" || true
       done
     '';
   };
