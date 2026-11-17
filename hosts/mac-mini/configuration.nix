@@ -32,12 +32,13 @@
 
   boot.kernelPackages =
     let
+      kernelPkgs = inputs.nixpkgs-kernel.legacyPackages.${pkgs.system};
       t2generic = "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix";
-      t2Kernel = (pkgs.callPackage t2generic { } {
-        kernel = pkgs.linux_6_18;
+      t2Kernel = (kernelPkgs.callPackage t2generic { } {
+        kernel = kernelPkgs.linux_6_18;
         patchesFile = ./patches-6.18.json;
       }).override (old: {
-        structuredExtraConfig = (old.structuredExtraConfig or { }) // (with pkgs.lib.kernel; {
+        structuredExtraConfig = (old.structuredExtraConfig or { }) // (with kernelPkgs.lib.kernel; {
           APPLE_BCE = unset;
           T2BCE_CORE = module;
           T2BCE_DMA = module;
@@ -46,10 +47,39 @@
         });
       });
     in
-    lib.mkForce (pkgs.linuxPackagesFor t2Kernel);
+    lib.mkForce (kernelPkgs.linuxPackagesFor t2Kernel);
 
   # Mac mini doesn't have an internal keyboard on BCE, so apple-bce in initrd is unnecessary
   boot.initrd.kernelModules = lib.mkForce [ ];
+
+  # Remote builder on mini-pc
+  nix = {
+    distributedBuilds = true;
+    buildMachines = [
+      {
+        hostName = "192.168.20.100";
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
+        maxJobs = 16;
+        speedFactor = 4;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        sshUser = "sano";
+        sshKey = "/root/.ssh/id_ed25519";
+      }
+    ];
+    extraOptions = ''
+      builders-use-substitutes = true
+    '';
+  };
+
+  # Automatically trust mini-pc host key so nix-daemon connects without interactive prompts
+  programs.ssh.knownHosts."192.168.20.100".publicKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBViKQ/LRNNhUF8dX8Vw+MVZQ/aEpv5n5aurLa7vm0TB";
 
   home-manager = {
     useGlobalPkgs = true;
