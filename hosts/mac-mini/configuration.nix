@@ -30,6 +30,26 @@
     inputs.nixos-hardware.nixosModules.apple-t2
   ];
 
+  boot.kernelPackages =
+    let
+      t2generic = "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix";
+      patchset = builtins.fromJSON (
+        builtins.readFile "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/stable.json"
+      );
+      # 2008-i915-4-lane-quirk-for-mbp15-1.patch is only for MacBookPro15,1 display and breaks build on kernel >= 6.18.55
+      filteredPatches = builtins.filter (
+        p: p.name != "2008-i915-4-lane-quirk-for-mbp15-1.patch"
+      ) patchset.patches;
+      customPatchesFile = pkgs.writeText "stable.json" (
+        builtins.toJSON (patchset // { patches = filteredPatches; })
+      );
+      t2Kernel = pkgs.callPackage t2generic { } {
+        kernel = pkgs.linux_6_18;
+        patchesFile = customPatchesFile;
+      };
+    in
+    lib.mkForce (pkgs.linuxPackagesFor t2Kernel);
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
