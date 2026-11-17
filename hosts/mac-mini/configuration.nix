@@ -49,8 +49,15 @@
     in
     lib.mkForce (kernelPkgs.linuxPackagesFor t2Kernel);
 
-  # Mac mini doesn't have an internal keyboard on BCE, so apple-bce in initrd is unnecessary
-  boot.initrd.kernelModules = lib.mkForce [ ];
+  # nixos-hardware's apple-t2 module puts "apple-bce" into initrd, but the 6.18
+  # patchset renamed the driver to t2bce_*, so it has to be dropped. mkForce wipes
+  # every other contribution too, so re-add what the rest of the config needs:
+  # btrfs for /nix (needed in stage 1) and dm_mod from the default initrd set.
+  # Mac mini has no internal keyboard, so BCE isn't needed this early.
+  boot.initrd.kernelModules = lib.mkForce [
+    "btrfs"
+    "dm_mod"
+  ];
 
   home-manager = {
     useGlobalPkgs = true;
