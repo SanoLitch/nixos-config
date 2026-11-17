@@ -33,22 +33,23 @@
   boot.kernelPackages =
     let
       t2generic = "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/generic.nix";
-      patchset = builtins.fromJSON (
-        builtins.readFile "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2/stable.json"
-      );
-      # 2008-i915-4-lane-quirk-for-mbp15-1.patch is only for MacBookPro15,1 display and breaks build on kernel >= 6.18.55
-      filteredPatches = builtins.filter (
-        p: p.name != "2008-i915-4-lane-quirk-for-mbp15-1.patch"
-      ) patchset.patches;
-      customPatchesFile = pkgs.writeText "stable.json" (
-        builtins.toJSON (patchset // { patches = filteredPatches; })
-      );
-      t2Kernel = pkgs.callPackage t2generic { } {
+      t2Kernel = (pkgs.callPackage t2generic { } {
         kernel = pkgs.linux_6_18;
-        patchesFile = customPatchesFile;
-      };
+        patchesFile = ./patches-6.18.json;
+      }).override (old: {
+        structuredExtraConfig = (old.structuredExtraConfig or { }) // (with pkgs.lib.kernel; {
+          APPLE_BCE = unset;
+          T2BCE_CORE = module;
+          T2BCE_DMA = module;
+          T2BCE_VHCI = module;
+          T2BCE_AUDIO = module;
+        });
+      });
     in
     lib.mkForce (pkgs.linuxPackagesFor t2Kernel);
+
+  # Mac mini doesn't have an internal keyboard on BCE, so apple-bce in initrd is unnecessary
+  boot.initrd.kernelModules = lib.mkForce [ ];
 
   home-manager = {
     useGlobalPkgs = true;
