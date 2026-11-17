@@ -52,35 +52,6 @@
   # Mac mini doesn't have an internal keyboard on BCE, so apple-bce in initrd is unnecessary
   boot.initrd.kernelModules = lib.mkForce [ ];
 
-  # Remote builder on mini-pc
-  nix = {
-    distributedBuilds = true;
-    buildMachines = [
-      {
-        hostName = "192.168.20.100";
-        system = "x86_64-linux";
-        protocol = "ssh-ng";
-        maxJobs = 16;
-        speedFactor = 4;
-        supportedFeatures = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-        ];
-        sshUser = "sano";
-        sshKey = "/root/.ssh/id_ed25519";
-      }
-    ];
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
-  };
-
-  # Automatically trust mini-pc host key so nix-daemon connects without interactive prompts
-  programs.ssh.knownHosts."192.168.20.100".publicKey =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBViKQ/LRNNhUF8dX8Vw+MVZQ/aEpv5n5aurLa7vm0TB";
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
