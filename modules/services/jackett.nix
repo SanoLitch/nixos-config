@@ -68,28 +68,4 @@
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
   };
-
-  systemd.services.jackett-keepalive = {
-    description = "Jackett Indexers Keepalive Test";
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    script = ''
-      CONFIG_FILE="/var/lib/jackett/config/Jackett/ServerConfig.json"
-
-      if [ -f "$CONFIG_FILE" ]; then
-        API_KEY=$(${pkgs.jq}/bin/jq -r '.APIKey' "$CONFIG_FILE")
-        ${pkgs.curl}/bin/curl -s -X POST "http://127.0.0.1:9117/api/v2.0/indexers/status:all/test?apikey=''${API_KEY}" > /dev/null
-      fi
-    '';
-  };
-
-  systemd.timers.jackett-keepalive = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "2m";
-      OnUnitActiveSec = "30m";
-      Persistent = true;
-    };
-  };
 }
