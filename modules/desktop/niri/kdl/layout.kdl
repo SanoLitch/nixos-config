@@ -1,0 +1,39 @@
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+prefer-no-csd
+
+overview {
+    workspace-shadow { off; }
+}
+
+layout {
+    gaps 4
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+    focus-ring { off; }
+    border { off; }
+    background-color "transparent"
+    shadow {
+        on
+        offset x=0 y=5
+        softness 30
+        spread 5
+        draw-behind-window false
+        color "#0007"
+    }
+    default-column-width { proportion 0.500000; }
+    preset-column-widths {
+        proportion 0.250000
+        proportion 0.333330
+        proportion 0.500000
+        proportion 0.666670
+        proportion 0.750000
+    }
+    center-focused-column "never"
+}
+
+hotkey-overlay { skip-at-startup; }
+animations { slowdown 0.800000; }

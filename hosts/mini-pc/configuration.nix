@@ -17,6 +17,7 @@
         "steam-unwrapped"
         "antigravity-cli"
         "claude-code"
+        "vault"
       ];
     permittedInsecurePackages = [
       "pnpm-9.15.9"
@@ -62,45 +63,46 @@
   };
 
   time.timeZone = "Europe/Moscow";
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "en_GB.UTF-8";
+    };
+  };
   networking.hostName = hostname;
 
   boot.kernelParams = [
     "video=HDMI-A-1:2732x2048@60e"
   ];
 
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
+  ];
+
   host = {
     apps = {
+      clash-verge.enable = false;
       sunshine = {
         enable = true;
         outputName = "HDMI-A-1";
       };
+      vinegar.enable = true;
     };
     desktop.niri = {
       enable = true;
-      outputs = {
-        "DP-1" = {
-          mode = {
-            width = 3440;
-            height = 1440;
-            refresh = 144.0;
-          };
-          scale = 1.6;
-        };
-        "HDMI-A-1" = {
-          enable = false;
-          mode = {
-            width = 2732;
-            height = 2048;
-            refresh = 60.0;
-          };
-          scale = 2.0;
-          position = {
-            x = 3440;
-            y = 0;
-          };
-        };
-      };
+      extraConfig = ''
+        output "DP-1" {
+            scale 1.6
+            mode "3440x1440@144.0"
+        }
+
+        output "HDMI-A-1" {
+            off
+            scale 2.0
+            position x=3440 y=0
+            mode "2732x2048@60.0"
+        }
+      '';
     };
     hardware = {
       k380.enable = true;

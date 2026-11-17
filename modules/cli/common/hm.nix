@@ -1,31 +1,44 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     ./git.nix
     ./lazygit.nix
-    ./yazi.nix
+    # ./yazi.nix
+    ./superfile.nix
   ];
 
   home.packages = with pkgs; [
     btop
+    procs
+    dust
     eza
-    harlequin
-    lazydocker
+    fzf
+    glow
+    rainfrog
     unar
     jq
-    devbox
+    yq-go
+    vault
+    kubectl
+    kubernetes-helm
+    hl-log-viewer
     devenv
     direnv
-    gitui
   ];
 
-  programs.bat = {
-    enable = true;
-  };
+  programs = {
+    bat = {
+      enable = true;
+    };
 
-  programs.ripgrep = {
-    enable = true;
-    arguments = [
-      "--iglob=!.git"
-    ];
+    posting = {
+      enable = true;
+    };
+
+    ripgrep = {
+      enable = true;
+      arguments = [
+        "--iglob=!.git"
+      ];
+    };
   };
 }

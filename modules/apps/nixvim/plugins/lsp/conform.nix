@@ -166,6 +166,14 @@
           __unkeyed-2 = "prettierd";
           stop_after_first = true;
         };
+        vue = {
+          __unkeyed-1 = "dprint";
+          __unkeyed-2 = "prettierd";
+          __unkeyed-3 = "eslint_d";
+          stop_after_first = true;
+        };
+        lua = [ "stylua" ];
+        luau = [ "stylua" ];
       };
     };
 

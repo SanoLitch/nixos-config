@@ -1,91 +1,56 @@
 {
-  inputs,
+  config,
   lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.host.desktop.niri;
+
+  cursor = config.stylix.cursor or {
+    name = "Bibata-Modern-Ice";
+    size = 24;
+  };
+in
 {
-  imports = [
-    inputs.niri.homeModules.niri
+  options.host.desktop.niri = {
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Host-specific Niri KDL configuration";
+    };
+  };
 
-    ./input.nix
-    ./layout.nix
-    ./rules.nix
-  ];
+  config = {
+    home.packages = with pkgs; [
+      satty
+      grim
+      slurp
+      cliphist
+      xwayland-satellite
+    ];
 
-  home.packages = with pkgs; [
-    satty
-    grim
-    slurp
-    cliphist
-  ];
+    xdg.configFile."niri/config.kdl".source = pkgs.writeTextFile {
+      name = "niri-config.kdl";
+      text = ''
+        ${cfg.extraConfig}
 
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri;
-    settings = {
-      spawn-at-startup = [
-        {
-          command = [
-            "sh"
-            "-c"
-            "wl-paste --type text --watch cliphist store"
-          ];
+        cursor {
+            xcursor-theme "${cursor.name}"
+            xcursor-size ${toString cursor.size}
+            hide-when-typing
+            hide-after-inactive-ms 5000
         }
-        {
-          command = [
-            "sh"
-            "-c"
-            "wl-paste --type image --watch cliphist store"
-          ];
-        }
-        {
-          command = [
-            "noctalia-shell"
-          ];
-        }
-        {
-          command = [
-            "nm-applet"
-          ];
-        }
-        {
-          command = [
-            "solaar"
-            "-w"
-            "hide"
-            "--restart-on-wake-up"
-          ];
-        }
-        {
-          command = [
-            "keepassxc"
-            "--minimized"
-          ];
-        }
-      ];
 
-      animations = {
-        slowdown = 0.8;
-      };
+        xwayland-satellite { path "${lib.getExe pkgs.xwayland-satellite}"; }
 
-      cursor = {
-        hide-after-inactive-ms = 5000;
-        hide-when-typing = true;
-      };
-
-      overview = {
-        workspace-shadow.enable = false;
-      };
-
-      prefer-no-csd = true;
-
-      hotkey-overlay.skip-at-startup = true;
-
-      xwayland-satellite = {
-        enable = true;
-        path = lib.getExe pkgs.xwayland-satellite;
-      };
+        ${builtins.readFile ./kdl/input.kdl}
+        ${builtins.readFile ./kdl/layout.kdl}
+        ${builtins.readFile ./kdl/binds.kdl}
+        ${builtins.readFile ./kdl/rules.kdl}
+        ${builtins.readFile ./kdl/startup.kdl}
+      '';
+      checkPhase = "${lib.getExe pkgs.niri} validate --config \"$target\"";
     };
   };
 }

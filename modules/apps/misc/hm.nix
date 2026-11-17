@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    brave
     telegram-desktop
     libreoffice
     spotify

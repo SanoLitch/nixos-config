@@ -8,18 +8,21 @@
 {
   imports = [
     inputs.stylix.homeModules.stylix
-    inputs.niri.homeModules.stylix
+  ];
+
+  home.packages = with pkgs; [
+    nerd-fonts.caskaydia-cove
   ];
 
   gtk.gtk4.theme = lib.mkForce config.gtk.theme;
 
   stylix = {
     enable = true;
+    overlays.enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
 
     targets = {
-      niri.enable = true;
       kitty.variant256Colors = true;
       neovim.enable = false;
       nixvim.enable = false;

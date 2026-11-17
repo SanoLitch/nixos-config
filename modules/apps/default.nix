@@ -2,6 +2,7 @@
 {
   imports = [
     ./antigravity
+    ./claude
     ./keepassxc
     ./mpv
     ./syncthing
@@ -13,18 +14,29 @@
     ./zoom
     ./misc
     ./sunshine
+    ./helium
+    ./vinegar
+    ./rtk
   ];
 
-  host.apps.antigravity.enable = lib.mkDefault true;
-  host.apps.keepassxc.enable = lib.mkDefault true;
-  host.apps.mpv.enable = lib.mkDefault true;
-  host.apps.syncthing.enable = lib.mkDefault true;
-  host.apps.zen.enable = lib.mkDefault true;
-  host.apps.steam.enable = lib.mkDefault true;
-  host.apps.easyeffects.enable = lib.mkDefault true;
-  host.apps.nixvim.enable = lib.mkDefault true;
-  host.apps.clash-verge.enable = lib.mkDefault true;
-  host.apps.zoom.enable = lib.mkDefault true;
-  host.apps.misc.enable = lib.mkDefault true;
-  host.apps.sunshine.enable = lib.mkDefault false;
+  host = {
+    apps = {
+      antigravity.enable = lib.mkDefault true;
+      claude.enable = lib.mkDefault true;
+      keepassxc.enable = lib.mkDefault true;
+      mpv.enable = lib.mkDefault true;
+      syncthing.enable = lib.mkDefault true;
+      zen.enable = lib.mkDefault true;
+      helium.enable = lib.mkDefault true;
+      steam.enable = lib.mkDefault true;
+      easyeffects.enable = lib.mkDefault true;
+      nixvim.enable = lib.mkDefault true;
+      clash-verge.enable = lib.mkDefault true;
+      zoom.enable = lib.mkDefault true;
+      misc.enable = lib.mkDefault true;
+      rtk.enable = lib.mkDefault true;
+      sunshine.enable = lib.mkDefault false;
+      vinegar.enable = lib.mkDefault false;
+    };
+  };
 }

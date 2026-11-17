@@ -1,0 +1,4 @@
+{ inputs, ... }:
+{
+  security.unprivilegedUsernsClone = true;
+}

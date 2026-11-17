@@ -1,0 +1,78 @@
+window-rule {
+    draw-border-with-background false
+    geometry-corner-radius 2.000000 2.000000 2.000000 2.000000
+    clip-to-geometry true
+    opacity 0.840000
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+window-rule {
+    match is-active=true
+    opacity 0.900000
+}
+
+layer-rule {
+    match namespace="^noctalia-backdrop"
+    place-within-backdrop true
+}
+
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+    open-floating true
+}
+
+window-rule {
+    match app-id="nm-openconnect-auth-dialog"
+    open-floating true
+}
+
+window-rule {
+    match app-id="nm-openconnect-auth-dialog"
+    open-floating true
+    open-focused true
+    min-width 800
+    min-height 600
+    default-floating-position relative-to="top" x=0 y=0
+}
+
+window-rule {
+    match app-id="zoom"
+    exclude app-id="zoom" title="Meeting"
+    open-maximized false
+    open-fullscreen false
+    open-floating true
+    open-focused false
+}
+
+window-rule {
+    match app-id="steam_app_1973530" title="LimbusCompany"
+    open-maximized false
+    open-fullscreen false
+    open-floating true
+    open-focused false
+    min-width 1200
+    min-height 675
+    max-width 1200
+    max-height 675
+    opacity 1.0
+    default-floating-position relative-to="top-left" x=0 y=0
+
+    background-effect {
+        blur false
+        xray false
+    }
+}
+
+window-rule {
+    match app-id="zoom" title="annotate_toolbar"
+    border { off; }
+    max-width 64
+    max-height 64
+    default-floating-position relative-to="bottom-left" x=24 y=72
+}

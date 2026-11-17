@@ -43,7 +43,12 @@
   };
 
   time.timeZone = "Europe/Moscow";
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "ru_RU.UTF-8";
+    };
+  };
   networking.hostName = hostname;
 
   host = {
@@ -63,16 +68,19 @@
     };
     apps = {
       antigravity.enable = false;
+      claude.enable = false;
       keepassxc.enable = true;
       mpv.enable = false;
       syncthing.enable = false;
       zen.enable = false;
+      helium.enable = false;
       steam.enable = false;
       easyeffects.enable = false;
       nixvim.enable = true;
       clash-verge.enable = false;
       zoom.enable = false;
       misc.enable = false;
+      rtk.enable = false;
     };
     terminal = {
       fastfetch.enable = false;

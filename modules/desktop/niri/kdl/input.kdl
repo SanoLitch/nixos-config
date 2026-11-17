@@ -1,0 +1,22 @@
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            model ""
+            rules ""
+            variant ""
+            options "grp:win_space_toggle"
+        }
+        repeat-delay 600
+        repeat-rate 25
+        track-layout "window"
+    }
+    touchpad {
+        tap
+        dwt
+        scroll-factor 0.500000
+    }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+gestures { hot-corners { off; }; }

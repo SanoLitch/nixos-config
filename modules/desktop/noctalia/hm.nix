@@ -1,62 +1,18 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}:
-let
-  defaultWallpaper = ../wallpapers/anime-girl-violet.jpg;
-in
+{ inputs, ... }:
 {
   imports = [
     inputs.noctalia.homeModules.default
 
+    ./shell.nix
     ./bar.nix
-    ./general.nix
+    ./notifications.nix
+    ./widgets.nix
     ./idle.nix
-    ./sessions.nix
+    ./theme.nix
+    # ./calendars.nix
   ];
 
-  home.packages = with pkgs; [
-    nerd-fonts.caskaydia-cove
-  ];
-
-  home.file.".cache/noctalia/wallpapers.json" = {
-    text = builtins.toJSON {
-      inherit defaultWallpaper;
-    };
-  };
-
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
-
-    settings = {
-      colorSchemes.predefinedScheme = "Catppuccin";
-
-      ui = {
-        panelBackgroundOpacity = lib.mkForce 0.85;
-      };
-
-      location = {
-        analogClockInCalendar = "true";
-        name = "Moscow, RU";
-        firstDayOfWeek = 1;
-        showWeekNumberInCalendar = true;
-      };
-
-      dock.enabled = false;
-
-      notifications = {
-        backgroundOpacity = lib.mkForce 0.9;
-        respectExpireTimeout = true;
-        enableKeyboardLayoutToast = false;
-        saveToHistory = {
-          low = false;
-          normal = false;
-          critical = true;
-        };
-      };
-
-    };
   };
 }

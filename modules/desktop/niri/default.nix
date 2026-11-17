@@ -5,10 +5,10 @@ in
 {
   options.host.desktop.niri = {
     enable = lib.mkEnableOption "Niri Window Manager";
-    outputs = lib.mkOption {
-      type = lib.types.attrs;
-      default = {};
-      description = "Niri monitor outputs configuration";
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Host-specific Niri KDL configuration";
     };
   };
 
@@ -18,7 +18,7 @@ in
 
     home-manager.users."${secrets.user.username}" = {
       imports = [ ./hm.nix ];
-      programs.niri.settings.outputs = cfg.outputs;
+      host.desktop.niri.extraConfig = cfg.extraConfig;
     };
   };
 }

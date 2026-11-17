@@ -10,6 +10,7 @@ SEARCH_PATHS = [
     os.path.expanduser("~/.devbox/nix/profile/default/bin/agy"),
     os.path.expanduser("~/.nix-profile/bin/agy"),
     os.path.expanduser("~/.local/bin/agy"),
+    f"/etc/profiles/per-user/{os.environ.get('USER', '')}/bin/agy",
     "/run/current-system/sw/bin/agy",
     "/usr/local/bin/agy",
     "/usr/bin/agy",
@@ -26,64 +27,94 @@ def find_binary():
         
     return None
 
-def scan_binary_for_pattern(data):
+def scan_gate1(data):
     """
-    Fast-scans binary data for the eligibility check gates (Linux x86_64 ELF).
-    Returns list of (patch_offset, new_inst_bytes) tuples, or already_patched boolean.
+    Scans for the primary eligibility check API gate (Linux x86_64 ELF).
+    Returns (patch_tuple, is_already_patched) where patch_tuple is (offset, new_bytes) or None.
     """
     n = len(data)
-    patches = []
-
-    # --- GATE 1: Primary Eligibility Check API Gate ---
-    # Finds function that returns "Eligibility check failed: ..."
     target_str = b'Eligibility check failed:'
-    str_off = data.find(target_str)
+    str_offsets = []
+    idx = 0
+    while True:
+        pos = data.find(target_str, idx)
+        if pos == -1:
+            break
+        str_offsets.append(pos)
+        idx = pos + 1
 
-    if str_off != -1:
-        pattern = b'\x48\x85\xdb\x0f\x85'  # test rbx, rbx; jne rel32
+    if not str_offsets:
+        return None, False
+
+    # Opcode patterns for `test reg, reg`
+    # Standard 64-bit registers: rax, rcx, rdx, rbx, rsp, rbp, rsi, rdi (48 85 c0..ff)
+    # Extended 64-bit registers: r8 .. r15 (4d 85 c0..ff)
+    test_opcodes = [bytes([0x48, 0x85, 0xc0 + i * 9]) for i in range(8)] + \
+                   [bytes([0x4d, 0x85, 0xc0 + i * 9]) for i in range(8)]
+
+    # 1. Check if already patched:
+    # Replaces `test reg, reg; jne <error>` with `test reg, reg; jmp <success>; nop`
+    for test_op in test_opcodes:
         idx = 0
         while True:
-            idx = data.find(pattern, idx)
+            idx = data.find(test_op + b'\xe9', idx)
             if idx == -1:
                 break
-            rel32 = struct.unpack('<i', data[idx+5:idx+9])[0]
-            jne_target = idx + 9 + rel32
-            if 0 <= jne_target < n - 0x200:
-                target_chunk = data[jne_target:jne_target+0x200]
-                # Check for LEA instruction referencing eligibility string
-                for offset in range(0, len(target_chunk) - 7):
-                    if target_chunk[offset:offset+3] in (
-                        b'\x48\x8d\x05', b'\x48\x8d\x0d', b'\x48\x8d\x15', b'\x48\x8d\x1d',
-                        b'\x48\x8d\x25', b'\x48\x8d\x2d', b'\x48\x8d\x35', b'\x48\x8d\x3d'
-                    ):
-                        disp = struct.unpack('<i', target_chunk[offset+3:offset+7])[0]
-                        lea_dest = (jne_target + offset) + 7 + disp
-                        if abs(lea_dest - str_off) < 0x100:
-                            # Found the eligibility check gate!
-                            patch_offset = idx + 3  # Points to 0f 85 ...
-                            
-                            # Check if already patched
-                            if data[patch_offset:patch_offset+1] == b'\xe9' and data[patch_offset+5:patch_offset+6] == b'\x90':
-                                break
-                                
-                            # Calculate relative jump to success block
-                            success_rel32 = 0x220
-                            chunk_after = data[patch_offset+6:patch_offset+6+64]
-                            for i in range(len(chunk_after) - 6):
-                                if chunk_after[i:i+2] in (b'\x0f\x84', b'\x0f\x85'):
-                                    jmp_rel = struct.unpack('<i', chunk_after[i+2:i+6])[0]
-                                    inst_addr = patch_offset + 6 + i
-                                    dest = inst_addr + 6 + jmp_rel
-                                    if dest > patch_offset + 0x100:
-                                        success_rel32 = dest - (patch_offset + 5)
-                                        break
-
-                            new_inst_bytes = b'\xe9' + struct.pack('<i', success_rel32) + b'\x90'
-                            patches.append((patch_offset, new_inst_bytes))
-                            break
+            patch_offset = idx + len(test_op)
+            if patch_offset + 6 <= n and data[patch_offset + 5] == 0x90:
+                rel32 = struct.unpack('<i', data[patch_offset + 1:patch_offset + 5])[0]
+                dest = patch_offset + 5 + rel32
+                if 0 <= dest < n - 0x100:
+                    if b'consumer' in data[dest:dest + 0x100]:
+                        return None, True
             idx += 1
 
-    # --- GATE 2: TUI Local Input Loop Eligibility Gate ---
+    # 2. Look for unpatched gate:
+    # `test reg, reg` followed by `jne <error_handler>` (0f 85 rel32)
+    for test_op in test_opcodes:
+        idx = 0
+        while True:
+            idx = data.find(test_op + b'\x0f\x85', idx)
+            if idx == -1:
+                break
+            patch_offset = idx + len(test_op)
+            rel32 = struct.unpack('<i', data[patch_offset + 2:patch_offset + 6])[0]
+            if 0x100 < rel32 < 0x800:
+                error_target = patch_offset + 6 + rel32
+                if 0 <= error_target < n - 0x200:
+                    target_chunk = data[error_target:error_target + 0x200]
+                    # Check for RIP-relative LEA referencing any eligibility string
+                    has_str_ref = False
+                    for off in range(0, len(target_chunk) - 7):
+                        if target_chunk[off:off + 2] == b'\x48\x8d' and (target_chunk[off + 2] & 0xc7 == 0x05):
+                            disp = struct.unpack('<i', target_chunk[off + 3:off + 7])[0]
+                            lea_dest = (error_target + off) + 7 + disp
+                            if any(abs(lea_dest - s) < 0x80 for s in str_offsets):
+                                has_str_ref = True
+                                break
+
+                    if has_str_ref:
+                        # Find forward jump to success block in chunk_after
+                        chunk_after = data[patch_offset + 6:patch_offset + 6 + 64]
+                        for i in range(len(chunk_after) - 6):
+                            if chunk_after[i:i + 2] in (b'\x0f\x84', b'\x0f\x85'):
+                                jmp_rel = struct.unpack('<i', chunk_after[i + 2:i + 6])[0]
+                                inst_addr = patch_offset + 6 + i
+                                dest = inst_addr + 6 + jmp_rel
+                                if dest > patch_offset + 0x100 and b'consumer' in data[dest:dest + 0x100]:
+                                    success_rel32 = dest - (patch_offset + 5)
+                                    new_bytes = b'\xe9' + struct.pack('<i', success_rel32) + b'\x90'
+                                    return (patch_offset, new_bytes), False
+            idx += 1
+
+    return None, False
+
+def scan_gate2(data):
+    """
+    Scans for the TUI local input loop eligibility gate (Linux x86_64 ELF).
+    Returns (patch_tuple, is_already_patched) where patch_tuple is (offset, new_bytes) or None.
+    """
+    n = len(data)
     tui_pattern = b'\x41\x80\x3c\x24\x00'  # cmpb $0x0, (%r12)
     idx = 0
     while True:
@@ -91,26 +122,47 @@ def scan_binary_for_pattern(data):
         if idx == -1 or idx > n - 25:
             break
 
-        if data[idx+5:idx+7] == b'\x0f\x85':
-            rel32 = struct.unpack('<i', data[idx+7:idx+11])[0]
+        # Check if already patched:
+        if (data[idx + 5:idx + 6] == b'\xe9' and data[idx + 10:idx + 11] == b'\x90') or data[idx + 5:idx + 11] == b'\x90' * 6:
+            after_patch = idx + 11
+            if (data[after_patch] == 0x90 and data[after_patch + 1:after_patch + 3] == b'\x48\x8d') or data[after_patch:after_patch + 2] == b'\x48\x8d':
+                return None, True
+
+        if data[idx + 5:idx + 7] == b'\x0f\x85':
+            rel32 = struct.unpack('<i', data[idx + 7:idx + 11])[0]
             after_jne = idx + 11
 
-            if rel32 > 0 and data[after_jne] == 0x90 and data[after_jne+1:after_jne+3] == b'\x48\x8d':
+            if rel32 > 0 and data[after_jne] == 0x90 and data[after_jne + 1:after_jne + 3] == b'\x48\x8d':
                 patch_offset = idx + 5
                 new_rel32 = rel32 + 1
                 new_inst_bytes = b'\xe9' + struct.pack('<i', new_rel32) + b'\x90'
-                patches.append((patch_offset, new_inst_bytes))
-                break
+                return (patch_offset, new_inst_bytes), False
 
-            if data[after_jne:after_jne+3] in (b'\x48\x8d\x05', b'\x48\x8d\x1d'):
+            if data[after_jne:after_jne + 3] in (b'\x48\x8d\x05', b'\x48\x8d\x1d'):
                 patch_offset = idx + 5
                 new_inst_bytes = b'\x90' * 6
-                patches.append((patch_offset, new_inst_bytes))
-                break
+                return (patch_offset, new_inst_bytes), False
 
         idx += 1
 
-    already_patched = len(patches) == 0 and str_off != -1
+    return None, False
+
+def scan_binary_for_pattern(data):
+    """
+    Fast-scans binary data for the eligibility check gates (Linux x86_64 ELF).
+    Returns list of (patch_offset, new_inst_bytes) tuples, or already_patched boolean.
+    """
+    patches = []
+
+    gate1, gate1_patched = scan_gate1(data)
+    gate2, gate2_patched = scan_gate2(data)
+
+    if gate1:
+        patches.append(gate1)
+    if gate2:
+        patches.append(gate2)
+
+    already_patched = len(patches) == 0 and (gate1_patched or gate2_patched)
     return patches, already_patched
 
 def patch_binary(filepath, output_path=None, backup=True):
@@ -172,7 +224,7 @@ def patch_binary(filepath, output_path=None, backup=True):
 
     print("✅ Patch applied successfully.")
     print("\n🎉 Run the patched client with:")
-    print(f"   AGY_CLI_DISABLE_AUTO_UPDATE=1 {target_filepath}")
+    print(f"   AGY_CLI_DISABLE_AUTO_UPDATE=true {target_filepath}")
 
     return True
 

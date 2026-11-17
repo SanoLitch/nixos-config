@@ -12,6 +12,8 @@
       # markdown = [ "vale" ];
       # text = [ "vale" ];
       bash = [ "shellcheck" ];
+      lua = [ "selene" ];
+      luau = [ "selene" ];
     };
   };
 
@@ -20,5 +22,7 @@
     statix
     # nodePackages.json5
     vale
+    selene
+    stylua
   ];
 }
