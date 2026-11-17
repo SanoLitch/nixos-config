@@ -17,6 +17,7 @@
     ./helium
     ./vinegar
     ./rtk
+    ./mempalace
   ];
 
   host = {
@@ -35,6 +36,7 @@
       zoom.enable = lib.mkDefault true;
       misc.enable = lib.mkDefault true;
       rtk.enable = lib.mkDefault true;
+      mempalace.enable = lib.mkDefault true;
       sunshine.enable = lib.mkDefault false;
       vinegar.enable = lib.mkDefault false;
     };

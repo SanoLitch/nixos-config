@@ -7,5 +7,6 @@
     ./syncthing.nix
     ./torrserver.nix
     ./flaresolver.nix
+    ./mempalace.nix
   ];
 }

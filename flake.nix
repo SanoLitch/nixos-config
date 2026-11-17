@@ -69,6 +69,7 @@
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
             sync = builtins.fromJSON (builtins.readFile "${local_config}/common/sync.json");
             mcp = builtins.fromJSON (builtins.readFile "${local_config}/common/mcp.json");
+            mempalace = builtins.fromJSON (builtins.readFile "${local_config}/common/mempalace.json");
             cloudflared = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/cloudflared.json");
             forgejo = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/forgejo.json");
           };
@@ -83,7 +84,8 @@
     in
     {
       nixosConfigurations = {
-        dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
+        # OUTDATED, PERHAPS NEVER BE USED AGAIN
+        # dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
         mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
       };

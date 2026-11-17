@@ -3,9 +3,18 @@
   hostname,
   pkgs,
   secrets,
+  lib,
   ...
 }:
 {
+  nixpkgs.config = {
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "vault"
+      ];
+  };
+
   imports = [
     inputs.home-manager.nixosModules.home-manager
 
@@ -81,6 +90,7 @@
       zoom.enable = false;
       misc.enable = false;
       rtk.enable = false;
+      mempalace.enable = false;
     };
     terminal = {
       fastfetch.enable = false;
