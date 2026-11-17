@@ -24,6 +24,7 @@
       lzg = "lazygit";
       lzd = "lazydocker";
       lzs = "lazysql";
+      sf = "superfile";
 
       cat = "bat";
       b = "bat";

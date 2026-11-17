@@ -51,6 +51,25 @@ window-rule {
 }
 
 window-rule {
+    match app-id="steam_app_1973530" title="LimbusCompany"
+    open-maximized false
+    open-fullscreen false
+    open-floating true
+    open-focused false
+    min-width 1200
+    min-height 675
+    max-width 1200
+    max-height 675
+    opacity 1.0
+    default-floating-position relative-to="top-left" x=0 y=0
+
+    background-effect {
+        blur false
+        xray false
+    }
+}
+
+window-rule {
     match app-id="zoom" title="annotate_toolbar"
     border { off; }
     max-width 64

@@ -2,6 +2,7 @@
 {
   imports = [
     ./antigravity
+    ./claude
     ./keepassxc
     ./mpv
     ./syncthing
@@ -14,11 +15,14 @@
     ./misc
     ./sunshine
     ./helium
+    ./vinegar
+    ./rtk
   ];
 
   host = {
     apps = {
       antigravity.enable = lib.mkDefault true;
+      claude.enable = lib.mkDefault true;
       keepassxc.enable = lib.mkDefault true;
       mpv.enable = lib.mkDefault true;
       syncthing.enable = lib.mkDefault true;
@@ -30,7 +34,9 @@
       clash-verge.enable = lib.mkDefault true;
       zoom.enable = lib.mkDefault true;
       misc.enable = lib.mkDefault true;
+      rtk.enable = lib.mkDefault true;
       sunshine.enable = lib.mkDefault false;
+      vinegar.enable = lib.mkDefault false;
     };
   };
 }

@@ -68,6 +68,7 @@
     };
     apps = {
       antigravity.enable = false;
+      claude.enable = false;
       keepassxc.enable = true;
       mpv.enable = false;
       syncthing.enable = false;
@@ -79,6 +80,7 @@
       clash-verge.enable = false;
       zoom.enable = false;
       misc.enable = false;
+      rtk.enable = false;
     };
     terminal = {
       fastfetch.enable = false;

@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-agy.url = "github:nixos/nixpkgs/09063bd1f2b36fd9fd793c36dfade7bd40a93dfc";
+    nixpkgs-agy.url = "github:nixos/nixpkgs/0bb2eedc20e4739f29e8045034f2828ad7054f8f";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
@@ -36,10 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    superfile = {
-      url = "github:yorukot/superfile";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # superfile = {
+    #   url = "github:yorukot/superfile";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
   nixConfig = {
     extra-substituters = [

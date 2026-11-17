@@ -17,6 +17,7 @@
         "steam-unwrapped"
         "antigravity-cli"
         "claude-code"
+        "vault"
       ];
     permittedInsecurePackages = [
       "pnpm-9.15.9"
@@ -74,12 +75,18 @@
     "video=HDMI-A-1:2732x2048@60e"
   ];
 
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
+  ];
+
   host = {
     apps = {
+      clash-verge.enable = false;
       sunshine = {
         enable = true;
         outputName = "HDMI-A-1";
       };
+      vinegar.enable = true;
     };
     desktop.niri = {
       enable = true;

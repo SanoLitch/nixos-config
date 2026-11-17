@@ -11,6 +11,7 @@
 
       servers = {
         vtsls.enable = true;
+        vue_ls.enable = true;
         tailwindcss.enable = true;
         jsonls.enable = true;
         html.enable = true;
