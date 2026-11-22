@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-agy.url = "github:nixos/nixpkgs/0bb2eedc20e4739f29e8045034f2828ad7054f8f";
+    nixpkgs-kernel.url = "github:nixos/nixpkgs/d5cc6833999746cffdfe0598f7bc801a57b887a9";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
@@ -69,6 +70,7 @@
             email = builtins.fromJSON (builtins.readFile "${local_config}/common/email.json");
             sync = builtins.fromJSON (builtins.readFile "${local_config}/common/sync.json");
             mcp = builtins.fromJSON (builtins.readFile "${local_config}/common/mcp.json");
+            mempalace = builtins.fromJSON (builtins.readFile "${local_config}/common/mempalace.json");
             cloudflared = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/cloudflared.json");
             forgejo = builtins.fromJSON (builtins.readFile "${local_config}/mac-mini/forgejo.json");
           };
@@ -83,7 +85,8 @@
     in
     {
       nixosConfigurations = {
-        dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
+        # OUTDATED, PERHAPS NEVER BE USED AGAIN
+        # dell = mkNixosSystem "dell" [ ./hosts/dell/configuration.nix ];
         mini-pc = mkNixosSystem "mini-pc" [ ./hosts/mini-pc/configuration.nix ];
         mac-mini = mkNixosSystem "mac-mini" [ ./hosts/mac-mini/configuration.nix ];
       };

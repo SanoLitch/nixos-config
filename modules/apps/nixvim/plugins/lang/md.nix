@@ -26,20 +26,6 @@
 
     lsp.servers = {
       marksman.enable = true;
-
-      ltex = {
-        enable = true;
-        filetypes = [
-          "markdown"
-          "text"
-        ];
-
-        settings.completionEnabled = true;
-
-        extraOptions = {
-          checkFrequency = "save";
-        };
-      };
     };
   };
 
